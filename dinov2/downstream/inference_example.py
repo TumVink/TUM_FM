@@ -68,7 +68,7 @@ def main(rank,world_size,args):
     if args.model == 'Dino_manual_74340':
         batch_size = 512
         num_workers = 0
-        model_dir = '/home/ge54xof/dino-tum/eval/manual_74340/teacher_checkpoint.pth'
+        model_dir = 'TUM_small/teacher_checkpoint.pth'
         if args.dist:
             ddp_setup(rank, world_size)
             model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir,rank=rank)
@@ -264,7 +264,7 @@ def main(rank,world_size,args):
 if __name__ == "__main__":
    import sys
    parser = argparse.ArgumentParser(description='Inference script to run the trained model on test data')
-   parser.add_argument('--model', default='Dino_giant', type=str, help='Path to the model file')
+   parser.add_argument('--model', default='Dino_manual_74340', type=str, help='Path to the model file')
    parser.add_argument('--test_data', default='MHIST', type=str, help='Path to the test data file')
    parser.add_argument('--eval_mode', default='KNN', type=str, help='Evaluation mode: test or val')
    parser.add_argument('--dist', default=False, help='Use multi GPU to speed up the inference')
