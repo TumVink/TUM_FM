@@ -95,6 +95,49 @@ def extract_patch_features_from_dataloader_dist(model, dataloader):
 
     return asset_dict
 
+@torch.no_grad()
+def extract_patch_features_from_slide_dist(model, dataloader):
+    """Uses model to extract features+labels from images iterated over the dataloader.
+
+    Args:
+        model (torch.nn): torch.nn CNN/VIT architecture with pretrained weights that extracts d-dim features.
+        dataloader (torch.utils.data.DataLoader): torch.utils.data.DataLoader object of N images.
+
+    Returns:
+        return embeddings, labels in tensors on GPU for dist
+    """
+    all_embeddings, all_labels = [], []
+    batch_size = dataloader.batch_size
+    device = next(model.parameters())[0].device
+
+    for batch_idx, (batch, target) in tqdm(
+        enumerate(dataloader), total=len(dataloader)
+    ):
+        remaining = batch.shape[0]
+        if remaining != batch_size:
+            _ = torch.zeros((batch_size - remaining,) + batch.shape[1:]).type(
+                batch.type()
+            )
+            batch = torch.vstack([batch, _])
+
+        batch = batch.to(device)
+        with torch.inference_mode():
+            embeddings = model(batch)[:remaining, :]
+            labels = target[:remaining]
+            assert not torch.isnan(embeddings).any()
+
+        all_embeddings.append(embeddings)
+        all_labels.append(labels)
+        # del embeddings
+        # del labels
+
+    asset_dict = {
+        "embeddings": torch.vstack(all_embeddings).double().detach().cpu(),
+        "idx": torch.cat(all_labels).long().detach().cpu(),
+    }
+
+    return asset_dict
+
 
 
 
@@ -127,7 +170,7 @@ def get_dino_finetuned_downloaded(DINO_PATH_FINETUNED_DOWNLOADED=None):
     # model.pos_embed = pos_embed
     # # load state dict
     # model.load_state_dict(pretrained, strict=True)
-    print(model.pos_embed.shape)
+    #print(model.pos_embed.shape)
 
     # load classical method
     pos_embed = nn.Parameter(torch.zeros(1, 257, 1536))
@@ -177,7 +220,37 @@ def get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=None,rank=
     model.load_state_dict(new_state_dict, strict=False)
     return model
 
+def get_UNI_downloaded_dist(UNI_dir=None,rank=0):
+    # load the original DINOv2 model with the correct architecture and parameters. The positional embedding is too large.
+    # load vits or vitg
+    #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+    #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14_reg')
+    import timm
+    model = timm.create_model("hf_hub:MahmoodLab/uni", pretrained=True, init_values=1e-5, dynamic_img_size=True)
 
+    loc = 'cuda:{}'.format(rank)
+    model.to(loc)
+
+    model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[rank])
+
+
+    #print(new_state_dict.keys())
+
+    # use training method
+    # input_tensor = model.pos_embed
+    # tensor_corr_shape = interpolate_pos_encoding(input_tensor, 16, 16)
+    # pos_embed = nn.Parameter(torch.zeros(1, 257))
+    # pos_embed.data = tensor_corr_shape
+    # model.pos_embed = pos_embed
+    # # load state dict
+    # model.load_state_dict(pretrained, strict=True)
+
+    # load classical method
+    # pos_embed = nn.Parameter(torch.zeros(1, 257, 1536))
+    # model.pos_embed = pos_embed
+    # # load state dict
+    # model.load_state_dict(new_state_dict, strict=False)
+    return model
 
 
 
