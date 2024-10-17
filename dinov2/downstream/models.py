@@ -1,5 +1,7 @@
 import torch
 from pathlib import Path
+import timm
+from timm.models.vision_transformer import _convert_dinov2
 
 
 class TUMViTG(torch.nn.Module):
@@ -292,3 +294,127 @@ class TUMViTG_modified(torch.nn.Module):
             patch_tokens = output["x_norm_patchtokens"]
             patch_mean = patch_tokens.mean(dim=1)
             return torch.cat([class_token, patch_mean], dim=-1)
+
+
+class timmTUMViTG(torch.nn.Module):
+    patch_size = 14
+    feature_dim = 1536
+
+    def __init__(self, pretrained_path: Path, output_mode: str = "class", **timmkwargs):
+        """
+        Args:
+            pretrained_path (Path): Path to the pretrained model weights.
+            output_mode (str): The output mode of the model. Choose from 'class' or 'class+mean'.
+                'class' returns the class token, 'class+mean' returns the class token concatenated with the mean of the patch tokens.
+            **timmkwargs: Additional keyword arguments for the timm model.
+        """
+        super().__init__()
+
+        if output_mode == "class+mean":
+            self.feature_dim = TUMViTG.feature_dim * 2
+        elif output_mode == "class":
+            self.feature_dim = TUMViTG.feature_dim
+        else:
+            raise ValueError(
+                f"Invalid output_mode: {output_mode}. Choose 'class' or 'class+mean'."
+            )
+        self.output_mode = output_mode
+
+        self.output_mode = output_mode
+
+        self.model = self.prep_model(pretrained_path, **timmkwargs)
+
+    @staticmethod
+    def prep_model(pretrained_path: Path, **timmkwargs) -> torch.nn.Module:
+        model: torch.nn.Module = timm.create_model(
+            "vit_giant_patch14_dinov2",
+            pretrained=False,
+            img_size=(224, 224),
+            **timmkwargs,
+        )
+        pretrained = torch.load(
+            pretrained_path,
+            map_location=torch.device("cpu"),
+            weights_only=True,
+        )
+        modified_pretrained = _convert_dinov2(pretrained, model)
+        # Load finetuned weights
+        model.load_state_dict(modified_pretrained)
+
+        return model
+
+    def freeze(self):
+        """
+        Freezes all parameters of the model.
+        """
+        for param in self.model.parameters():
+            param.requires_grad = False
+
+    def unfreeze(self):
+        """
+        Unfreezes all parameters of the model.
+        """
+        for param in self.model.parameters():
+            param.requires_grad = True
+
+    def forward_features(self, x: torch.Tensor):
+        """
+        Returns the original output of the model.
+        """
+        return self.model.forward_features(x)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass of the model.
+        Actual output depends on the self.output_mode set during initialization.
+
+        Returns:
+            torch.Tensor: `(batch_size, 1536)` or `(batch_size, 3072)` based on self.output_mode.
+        """
+        output = self.forward_features(x)
+
+        if self.output_mode == "class":
+            embedding = output[:, 0]
+        else:
+            class_token = output[:, 0]
+            patch_tokens = output[:, 1:]
+            patch_mean = patch_tokens.mean(dim=1)
+            embedding = torch.cat([class_token, patch_mean], dim=-1)
+
+        return embedding
+
+
+def get_dinov2_TUMViTG(pretrained_path: Path):
+    """
+    Returns the original implementation of the TUMViTG model.
+    """
+    model: torch.nn.Module = torch.hub.load("facebookresearch/dinov2", "dinov2_vitg14")
+    # Load finetuned weights
+    pretrained_model = torch.load(
+        pretrained_path,
+        map_location=torch.device("cpu"),
+        weights_only=True,
+    )
+    # Reduce position embedding size to be able to load the pretrained weights
+    model.pos_embed = torch.nn.Parameter(torch.zeros(1, 257, 1536))
+    model.load_state_dict(pretrained_model, strict=True)
+    return model
+
+
+def get_timm_TUMViTG(pretrained_path: Path):
+    """
+    Returns the timm implementation of the TUMViTG model.
+    """
+    model: torch.nn.Module = timm.create_model(
+        "vit_giant_patch14_dinov2",
+        pretrained=False,
+        img_size=(224, 224),
+    )
+    pretrained = torch.load(
+        pretrained_path,
+        map_location=torch.device("cpu"),
+        weights_only=True,
+    )
+    modified_pretrained = _convert_dinov2(pretrained, model)
+    # Load finetuned weights
+    model.load_state_dict(modified_pretrained, strict=True)
+    return model
