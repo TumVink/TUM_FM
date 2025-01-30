@@ -1,0 +1,42 @@
+
+I20241120 16:02:32 2253939 dinov2 train.py:276] Starting training from iteration 0
+I20241120 16:02:35 2253939 dinov2 helpers.py:102] Training  [    0/70800]  eta: 2 days, 0:06:24  lr: 0.0000 (0.0000)  wd: 0.0400 (0.0400)  mom: 0.9940 (0.9940)  last_layer_lr: 0.0000 (0.0000)  current_batch_size: 24.0000 (24.0000)  total_loss: 14.4794 (14.4794)  dino_local_crops_loss: 10.7670 (10.7670)  dino_global_crops_loss: 1.3751 (1.3751)  koleo_loss: -0.0135 (-0.0135)  ibot_loss: 2.3508 (2.3508)  time: 2.446114  data: 0.994026  max mem: 45000
+I20241120 16:02:49 2253939 dinov2 helpers.py:102] Training  [   10/70800]  eta: 1 day, 5:18:56  lr: 0.0000 (0.0000)  wd: 0.0400 (0.0400)  mom: 0.9940 (0.9940)  last_layer_lr: 0.0000 (0.0000)  current_batch_size: 24.0000 (24.0000)  total_loss: 14.3014 (14.3206)  dino_local_crops_loss: 10.6709 (10.6611)  dino_global_crops_loss: 1.3509 (1.3513)  koleo_loss: -0.0137 (-0.0139)  ibot_loss: 2.3185 (2.3221)  time: 1.490835  data: 0.770715  max mem: 46145
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/wandb/sdk/lib/exit_hooks.py", line 41, in exc_handler
+    def exc_handler(
+KeyboardInterrupt
+Original exception was:
+Traceback (most recent call last):
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 387, in <module>
+    main(args)
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 382, in main
+    do_train(cfg, model, resume=not args.no_resume)
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 308, in do_train
+    loss_dict = model.forward_backward(data, teacher_temp=teacher_temp)
+  File "/home/ge54xof/dino-tum/dinov2/train/ssl_meta_arch.py", line 393, in forward_backward
+    teacher_dino_softmaxed_centered_list, masked_teacher_ibot_softmaxed_centered = get_teacher_output()
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ge54xof/dino-tum/dinov2/train/ssl_meta_arch.py", line 321, in get_teacher_output
+    teacher_backbone_output_dict = self.teacher.backbone(x, is_training=True)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py", line 739, in forward
+    args, kwargs = _pre_forward(
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/distributed/fsdp/_runtime_utils.py", line 413, in _pre_forward
+    unshard_fn()
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/distributed/fsdp/_runtime_utils.py", line 434, in _pre_forward_unshard
+    _unshard(state, handles, state._streams["unshard"], state._streams["pre_unshard"])
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/distributed/fsdp/_runtime_utils.py", line 319, in _unshard
+    ran_pre_unshard = handle.pre_unshard()
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/distributed/fsdp/flat_param.py", line 862, in pre_unshard
+    ret = self._writeback_orig_params()
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 114, in decorate_context
+    with ctx_factory():
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/autograd/grad_mode.py", line 55, in __enter__
+    torch.set_grad_enabled(False)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/autograd/grad_mode.py", line 149, in __init__
+    def __init__(self, mode: bool) -> None:
+KeyboardInterrupt

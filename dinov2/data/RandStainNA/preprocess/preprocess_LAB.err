@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/dss/dsshome1/05/ge54xof2/RandStainNA/preprocess/datasets_statistics.py", line 10, in <module>
+srun: error: mcml-dgx-007: task 0: Exited with exit code 1
+    from skimage import color
+ModuleNotFoundError: No module named 'skimage'

@@ -1,0 +1,42 @@
+
+I20241202 21:49:59 1429278 dinov2 train.py:276] Starting training from iteration 0
+Traceback (most recent call last):
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 390, in <module>
+    main(args)
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 385, in main
+    do_train(cfg, model, resume=not args.no_resume)
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 308, in do_train
+    loss_dict = model.forward_backward(data, teacher_temp=teacher_temp)
+  File "/home/ge54xof/dino-tum/dinov2/train/ssl_meta_arch.py", line 413, in forward_backward
+    student_global_backbone_output_dict, student_local_backbone_output_dict = self.student.backbone(
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py", line 748, in forward
+    output = self._fsdp_wrapped_module(*args, **kwargs)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ge54xof/dino-tum/dinov2/models/vision_transformer.py", line 336, in forward
+    ret = self.forward_features(*args, **kwargs)
+  File "/home/ge54xof/dino-tum/dinov2/models/vision_transformer.py", line 254, in forward_features
+    return self.forward_features_list(x, masks)
+  File "/home/ge54xof/dino-tum/dinov2/models/vision_transformer.py", line 235, in forward_features_list
+    x = blk(x)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ge54xof/dino-tum/dinov2/layers/block.py", line 267, in forward
+    return self.forward_nested(x_or_x_list)
+  File "/home/ge54xof/dino-tum/dinov2/layers/block.py", line 257, in forward_nested
+    x = x + ffn_residual_func(x)
+  File "/home/ge54xof/dino-tum/dinov2/layers/block.py", line 253, in ffn_residual_func
+    return self.ls2(self.mlp(self.norm2(x)))
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/xformers/ops/swiglu_op.py", line 440, in forward
+    return swiglu(x, *self._ordered_params(), op=self.op)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/xformers/ops/swiglu_op.py", line 375, in swiglu
+    return op(x, w1, b1, w2, b2, w3, b3).reshape([*batch_shape, -1])
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/xformers/ops/swiglu_op.py", line 201, in __call__
+    return self.op(*args, **kwargs)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/xformers/ops/swiglu_op.py", line 218, in _eager_functional_swiglu
+    x1 = F.linear(x, w1, b1)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 458.00 MiB (GPU 0; 79.11 GiB total capacity; 70.30 GiB already allocated; 225.94 MiB free; 72.18 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

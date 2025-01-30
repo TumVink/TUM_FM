@@ -1,0 +1,380 @@
+2024-12-02 22:10:19,777 INFO    StreamThr :1454108 [internal.py:wandb_internal():85] W&B internal server running at pid: 1454108, started at: 2024-12-02 22:10:19.777033
+2024-12-02 22:10:19,779 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status
+2024-12-02 22:10:19,780 INFO    WriterThread:1454108 [datastore.py:open_for_write():87] open: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/run-vfkmsnhg.wandb
+2024-12-02 22:10:19,780 DEBUG   SenderThread:1454108 [sender.py:send():391] send: header
+2024-12-02 22:10:19,781 DEBUG   SenderThread:1454108 [sender.py:send():391] send: run
+2024-12-02 22:10:20,151 INFO    SenderThread:1454108 [dir_watcher.py:__init__():211] watching files in: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files
+2024-12-02 22:10:20,151 INFO    SenderThread:1454108 [sender.py:_start_run_threads():1200] run started: vfkmsnhg with start time 1733173819.776504
+2024-12-02 22:10:20,158 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: run_start
+2024-12-02 22:10:20,225 DEBUG   HandlerThread:1454108 [system_info.py:__init__():26] System info init
+2024-12-02 22:10:20,225 DEBUG   HandlerThread:1454108 [system_info.py:__init__():41] System info init done
+2024-12-02 22:10:20,225 INFO    HandlerThread:1454108 [system_monitor.py:start():194] Starting system monitor
+2024-12-02 22:10:20,226 INFO    SystemMonitor:1454108 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2024-12-02 22:10:20,226 INFO    HandlerThread:1454108 [system_monitor.py:probe():214] Collecting system info
+2024-12-02 22:10:20,226 INFO    SystemMonitor:1454108 [interfaces.py:start():188] Started cpu monitoring
+2024-12-02 22:10:20,227 INFO    SystemMonitor:1454108 [interfaces.py:start():188] Started disk monitoring
+2024-12-02 22:10:20,228 INFO    SystemMonitor:1454108 [interfaces.py:start():188] Started gpu monitoring
+2024-12-02 22:10:20,228 INFO    SystemMonitor:1454108 [interfaces.py:start():188] Started memory monitoring
+2024-12-02 22:10:20,229 INFO    SystemMonitor:1454108 [interfaces.py:start():188] Started network monitoring
+2024-12-02 22:10:20,307 DEBUG   HandlerThread:1454108 [system_info.py:probe():152] Probing system
+2024-12-02 22:10:20,309 DEBUG   HandlerThread:1454108 [system_info.py:_probe_git():137] Probing git
+2024-12-02 22:10:20,312 DEBUG   HandlerThread:1454108 [system_info.py:_probe_git():145] Probing git done
+2024-12-02 22:10:20,312 DEBUG   HandlerThread:1454108 [system_info.py:probe():200] Probing system done
+2024-12-02 22:10:20,312 DEBUG   HandlerThread:1454108 [system_monitor.py:probe():223] {'os': 'Linux-5.15.0-1065-nvidia-x86_64-with-glibc2.35', 'python': '3.10.13', 'heartbeatAt': '2024-12-02T21:10:20.308019', 'startedAt': '2024-12-02T21:10:19.774102', 'docker': None, 'cuda': None, 'args': ('--config-file', '../configs/ssl_14GPUS_100K.yaml'), 'state': 'running', 'program': '/home/ge54xof/dino-tum/dinov2/train/train.py', 'codePathLocal': 'train.py', 'codePath': 'dinov2/train/train.py', 'git': {'remote': 'git@github.com:beneroth13/dinov2.git', 'commit': 'ffb73cd426e77b07d288139e66a87357705de9d4'}, 'email': None, 'root': '/home/ge54xof/dino-tum', 'host': 'TUMEPA5-DGX1', 'username': 'ge54xof@ads.mwn.de', 'executable': '/home/ge54xof/miniconda3/envs/dino/bin/python', 'cpu_count': 112, 'cpu_count_logical': 224, 'cpu_freq': {'current': 2080.1282812500003, 'min': 800.0, 'max': 3800.0}, 'cpu_freq_per_core': [{'current': 3800.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 3786.313, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 3797.377, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 3799.564, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 3800.001, 'min': 800.0, 'max': 3800.0}, {'current': 3800.001, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 3800.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 3790.224, 'min': 800.0, 'max': 3800.0}, {'current': 3791.38, 'min': 800.0, 'max': 3800.0}, {'current': 3789.605, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}, {'current': 2000.0, 'min': 800.0, 'max': 3800.0}], 'disk': {'/': {'total': 1758.732967376709, 'used': 385.9177894592285}}, 'gpu': 'NVIDIA H100 80GB HBM3', 'gpu_count': 8, 'gpu_devices': [{'name': 'NVIDIA H100 80GB HBM3', 'memory_total': 85520809984}, {'name': 'NVIDIA H100 80GB HBM3', 'memory_total': 85520809984}, {'name': 'NVIDIA H100 80GB HBM3', 'memory_total': 85520809984}, {'name': 'NVIDIA H100 80GB HBM3', 'memory_total': 85520809984}, {'name': 'NVIDIA H100 80GB HBM3', 'memory_total': 85520809984}, {'name': 'NVIDIA H100 80GB HBM3', 'memory_total': 85520809984}, {'name': 'NVIDIA H100 80GB HBM3', 'memory_total': 85520809984}, {'name': 'NVIDIA H100 80GB HBM3', 'memory_total': 85520809984}], 'memory': {'total': 2015.5630912780762}}
+2024-12-02 22:10:20,312 INFO    HandlerThread:1454108 [system_monitor.py:probe():224] Finished collecting system info
+2024-12-02 22:10:20,312 INFO    HandlerThread:1454108 [system_monitor.py:probe():227] Publishing system info
+2024-12-02 22:10:20,313 DEBUG   HandlerThread:1454108 [system_info.py:_save_conda():209] Saving list of conda packages installed into the current environment
+2024-12-02 22:10:21,152 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/conda-environment.yaml
+2024-12-02 22:10:21,929 DEBUG   HandlerThread:1454108 [system_info.py:_save_conda():224] Saving conda packages done
+2024-12-02 22:10:21,930 INFO    HandlerThread:1454108 [system_monitor.py:probe():229] Finished publishing system info
+2024-12-02 22:10:21,933 DEBUG   SenderThread:1454108 [sender.py:send():391] send: files
+2024-12-02 22:10:21,933 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-metadata.json with policy now
+2024-12-02 22:10:22,014 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: python_packages
+2024-12-02 22:10:22,014 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: stop_status
+2024-12-02 22:10:22,014 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: python_packages
+2024-12-02 22:10:22,015 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: stop_status
+2024-12-02 22:10:22,016 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:10:22,151 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/conda-environment.yaml
+2024-12-02 22:10:22,152 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/requirements.txt
+2024-12-02 22:10:22,152 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-metadata.json
+2024-12-02 22:10:22,202 DEBUG   SenderThread:1454108 [sender.py:send():391] send: telemetry
+2024-12-02 22:10:22,545 INFO    wandb-upload_0:1454108 [upload_job.py:push():130] Uploaded file /tmp/tmpw00mrwu8wandb/xyb0vvl7-wandb-metadata.json
+2024-12-02 22:10:23,152 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:10:24,932 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:24,933 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:24,934 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:24,934 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:10:24,934 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:25,152 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:10:25,152 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:27,153 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:10:27,644 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:27,645 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:27,645 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:27,645 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:28,153 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:29,529 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:29,530 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:29,530 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:29,532 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:30,153 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:30,533 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:10:31,311 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:31,312 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:31,312 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:31,313 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:32,016 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:10:32,154 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:33,100 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:33,101 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:33,101 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:33,103 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:33,154 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:34,882 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:34,883 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:34,883 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:34,883 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:35,155 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:35,884 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:10:36,716 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:36,716 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:36,717 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:36,718 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:37,015 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: stop_status
+2024-12-02 22:10:37,015 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: stop_status
+2024-12-02 22:10:37,155 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:38,500 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:38,501 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:38,501 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:38,502 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:39,156 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:40,302 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:40,303 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:40,303 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:40,305 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:41,156 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:41,306 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:10:42,015 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:10:42,114 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:42,115 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:42,115 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:42,115 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:42,157 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:43,892 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:43,893 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:43,893 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:43,895 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:44,158 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:45,158 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:10:45,693 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:45,694 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:45,694 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:45,694 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:46,158 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:46,695 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:10:47,475 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:47,475 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:47,475 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:47,477 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:48,158 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:49,278 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:49,279 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:49,279 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:49,279 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:50,159 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:51,121 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:51,122 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:51,122 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:51,124 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:51,159 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:52,015 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: stop_status
+2024-12-02 22:10:52,015 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:10:52,015 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: stop_status
+2024-12-02 22:10:52,197 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:10:53,160 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/config.yaml
+2024-12-02 22:10:55,480 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:55,481 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:55,481 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:55,483 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:56,161 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:57,270 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:57,271 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:57,271 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:57,271 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:58,161 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:10:58,272 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:10:59,042 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:10:59,043 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:10:59,043 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:10:59,044 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:10:59,162 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:00,804 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:00,805 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:00,805 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:00,806 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:01,162 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:02,016 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:11:02,590 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:02,591 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:02,591 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:02,592 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:03,163 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:03,593 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:04,356 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:04,357 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:04,357 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:04,358 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:05,163 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:06,107 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:06,108 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:06,108 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:06,109 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:06,163 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:07,015 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: stop_status
+2024-12-02 22:11:07,016 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: stop_status
+2024-12-02 22:11:07,164 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:11:07,904 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:07,904 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:07,904 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:07,905 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:08,164 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:08,905 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:09,687 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:09,688 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:09,688 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:09,689 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:10,164 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:11,443 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:11,444 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:11,444 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:11,445 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:12,016 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:11:12,165 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:13,193 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:13,193 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:13,194 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:13,195 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:14,165 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:14,195 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:15,009 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:15,010 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:15,010 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:15,011 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:15,166 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:16,788 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:16,789 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:16,789 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:16,791 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:17,166 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:18,552 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:18,553 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:18,553 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:18,554 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:19,167 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:19,554 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:20,229 DEBUG   SystemMonitor:1454108 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2024-12-02 22:11:20,231 DEBUG   SenderThread:1454108 [sender.py:send():391] send: stats
+2024-12-02 22:11:20,344 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:20,345 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:20,345 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:20,346 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:21,167 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:22,015 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: stop_status
+2024-12-02 22:11:22,015 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: stop_status
+2024-12-02 22:11:22,016 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:11:22,121 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:22,276 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:22,276 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:22,276 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:23,168 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:25,168 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:11:25,277 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:27,048 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:27,049 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:27,049 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:27,051 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:27,169 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:28,787 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:28,788 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:28,788 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:28,788 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:29,169 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:30,541 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:30,541 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:30,542 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:30,542 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:30,542 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:31,170 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:32,016 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:11:32,281 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:32,281 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:32,282 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:32,282 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:33,171 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:34,101 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:34,102 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:34,102 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:34,102 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:34,171 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:35,893 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:35,894 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:35,894 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:35,894 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:35,894 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:36,171 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:37,015 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: stop_status
+2024-12-02 22:11:37,016 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: stop_status
+2024-12-02 22:11:37,657 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:37,657 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:37,657 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:37,658 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:38,172 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:39,428 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:39,429 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:39,429 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:39,430 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:40,173 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:41,185 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:41,186 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:41,186 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:41,186 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:41,187 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:42,016 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: internal_messages
+2024-12-02 22:11:42,173 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:42,951 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:42,952 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:42,952 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:42,953 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:43,173 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:44,705 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: partial_history
+2024-12-02 22:11:44,706 DEBUG   SenderThread:1454108 [sender.py:send():391] send: history
+2024-12-02 22:11:44,706 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: summary_record
+2024-12-02 22:11:44,707 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:44,976 DEBUG   SenderThread:1454108 [sender.py:send():391] send: exit
+2024-12-02 22:11:44,976 INFO    SenderThread:1454108 [sender.py:send_exit():598] handling exit code: 0
+2024-12-02 22:11:44,976 INFO    SenderThread:1454108 [sender.py:send_exit():600] handling runtime: 84
+2024-12-02 22:11:44,976 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:44,976 INFO    SenderThread:1454108 [sender.py:send_exit():606] send defer
+2024-12-02 22:11:44,976 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: defer
+2024-12-02 22:11:44,976 INFO    HandlerThread:1454108 [handler.py:handle_request_defer():184] handle defer: 0
+2024-12-02 22:11:44,977 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: defer
+2024-12-02 22:11:44,977 INFO    SenderThread:1454108 [sender.py:send_request_defer():622] handle sender defer: 0
+2024-12-02 22:11:44,977 INFO    SenderThread:1454108 [sender.py:transition_state():626] send defer: 1
+2024-12-02 22:11:44,977 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: defer
+2024-12-02 22:11:44,977 INFO    HandlerThread:1454108 [handler.py:handle_request_defer():184] handle defer: 1
+2024-12-02 22:11:44,977 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: defer
+2024-12-02 22:11:44,977 INFO    SenderThread:1454108 [sender.py:send_request_defer():622] handle sender defer: 1
+2024-12-02 22:11:44,977 INFO    SenderThread:1454108 [sender.py:transition_state():626] send defer: 2
+2024-12-02 22:11:44,977 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: defer
+2024-12-02 22:11:44,977 INFO    HandlerThread:1454108 [handler.py:handle_request_defer():184] handle defer: 2
+2024-12-02 22:11:44,977 INFO    HandlerThread:1454108 [system_monitor.py:finish():203] Stopping system monitor
+2024-12-02 22:11:44,977 INFO    HandlerThread:1454108 [interfaces.py:finish():200] Joined cpu monitor
+2024-12-02 22:11:44,978 DEBUG   SystemMonitor:1454108 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2024-12-02 22:11:44,978 INFO    HandlerThread:1454108 [interfaces.py:finish():200] Joined disk monitor
+2024-12-02 22:11:44,978 DEBUG   SystemMonitor:1454108 [system_monitor.py:_start():183] Publishing last batch of metrics
+2024-12-02 22:11:45,174 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:45,174 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:11:46,991 INFO    HandlerThread:1454108 [interfaces.py:finish():200] Joined gpu monitor
+2024-12-02 22:11:46,991 INFO    HandlerThread:1454108 [interfaces.py:finish():200] Joined memory monitor
+2024-12-02 22:11:46,991 INFO    HandlerThread:1454108 [interfaces.py:finish():200] Joined network monitor
+2024-12-02 22:11:46,991 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: poll_exit
+2024-12-02 22:11:46,991 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:46,991 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: defer
+2024-12-02 22:11:46,992 INFO    SenderThread:1454108 [sender.py:send_request_defer():622] handle sender defer: 2
+2024-12-02 22:11:46,992 INFO    SenderThread:1454108 [sender.py:transition_state():626] send defer: 3
+2024-12-02 22:11:46,992 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: defer
+2024-12-02 22:11:46,992 INFO    HandlerThread:1454108 [handler.py:handle_request_defer():184] handle defer: 3
+2024-12-02 22:11:46,992 DEBUG   SenderThread:1454108 [sender.py:send():391] send: stats
+2024-12-02 22:11:46,993 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: poll_exit
+2024-12-02 22:11:46,993 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: defer
+2024-12-02 22:11:46,993 INFO    SenderThread:1454108 [sender.py:send_request_defer():622] handle sender defer: 3
+2024-12-02 22:11:46,993 INFO    SenderThread:1454108 [sender.py:transition_state():626] send defer: 4
+2024-12-02 22:11:46,993 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: defer
+2024-12-02 22:11:46,993 INFO    HandlerThread:1454108 [handler.py:handle_request_defer():184] handle defer: 4
+2024-12-02 22:11:46,993 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: defer
+2024-12-02 22:11:46,993 INFO    SenderThread:1454108 [sender.py:send_request_defer():622] handle sender defer: 4
+2024-12-02 22:11:46,993 INFO    SenderThread:1454108 [sender.py:transition_state():626] send defer: 5
+2024-12-02 22:11:46,993 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: defer
+2024-12-02 22:11:46,993 INFO    HandlerThread:1454108 [handler.py:handle_request_defer():184] handle defer: 5
+2024-12-02 22:11:46,993 DEBUG   SenderThread:1454108 [sender.py:send():391] send: summary
+2024-12-02 22:11:46,994 INFO    SenderThread:1454108 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2024-12-02 22:11:46,994 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: defer
+2024-12-02 22:11:46,994 INFO    SenderThread:1454108 [sender.py:send_request_defer():622] handle sender defer: 5
+2024-12-02 22:11:46,994 INFO    SenderThread:1454108 [sender.py:transition_state():626] send defer: 6
+2024-12-02 22:11:46,994 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: defer
+2024-12-02 22:11:46,994 INFO    HandlerThread:1454108 [handler.py:handle_request_defer():184] handle defer: 6
+2024-12-02 22:11:46,994 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: defer
+2024-12-02 22:11:46,994 INFO    SenderThread:1454108 [sender.py:send_request_defer():622] handle sender defer: 6
+2024-12-02 22:11:46,995 INFO    SenderThread:1454108 [sender.py:transition_state():626] send defer: 7
+2024-12-02 22:11:46,995 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: status_report
+2024-12-02 22:11:46,995 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: defer
+2024-12-02 22:11:46,995 INFO    HandlerThread:1454108 [handler.py:handle_request_defer():184] handle defer: 7
+2024-12-02 22:11:46,995 DEBUG   SenderThread:1454108 [sender.py:send_request():418] send_request: defer
+2024-12-02 22:11:46,995 INFO    SenderThread:1454108 [sender.py:send_request_defer():622] handle sender defer: 7
+2024-12-02 22:11:47,175 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:47,175 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:11:47,978 DEBUG   HandlerThread:1454108 [handler.py:handle_request():158] handle_request: poll_exit
+2024-12-02 22:11:48,870 WARNING StreamThr :1454108 [internal.py:is_dead():413] Internal process exiting, parent pid 1452915 disappeared
+2024-12-02 22:11:48,870 ERROR   StreamThr :1454108 [internal.py:wandb_internal():151] Internal process shutdown.
+2024-12-02 22:11:48,978 INFO    HandlerThread:1454108 [handler.py:finish():884] shutting down handler
+2024-12-02 22:11:48,978 INFO    WriterThread:1454108 [datastore.py:close():296] close: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/run-vfkmsnhg.wandb
+2024-12-02 22:11:48,982 INFO    SenderThread:1454108 [sender.py:transition_state():626] send defer: 8
+2024-12-02 22:11:48,982 INFO    SenderThread:1454108 [sender.py:finish():1631] shutting down sender
+2024-12-02 22:11:48,982 INFO    SenderThread:1454108 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-12-02 22:11:49,175 INFO    Thread-12 :1454108 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [dir_watcher.py:finish():388] scan: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [dir_watcher.py:finish():402] scan save: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log output.log
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [dir_watcher.py:finish():402] scan save: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/requirements.txt requirements.txt
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [dir_watcher.py:finish():402] scan save: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/conda-environment.yaml conda-environment.yaml
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [dir_watcher.py:finish():402] scan save: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/config.yaml config.yaml
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [dir_watcher.py:finish():402] scan save: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json wandb-summary.json
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [dir_watcher.py:finish():402] scan save: /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-metadata.json wandb-metadata.json
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [file_pusher.py:finish():169] shutting down file pusher
+2024-12-02 22:11:49,176 INFO    SenderThread:1454108 [file_pusher.py:join():175] waiting for file pusher
+2024-12-02 22:11:49,541 INFO    wandb-upload_0:1454108 [upload_job.py:push():130] Uploaded file /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/requirements.txt
+2024-12-02 22:11:49,586 INFO    wandb-upload_1:1454108 [upload_job.py:push():130] Uploaded file /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/output.log
+2024-12-02 22:11:49,596 INFO    wandb-upload_4:1454108 [upload_job.py:push():130] Uploaded file /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/wandb-summary.json
+2024-12-02 22:11:49,597 INFO    wandb-upload_3:1454108 [upload_job.py:push():130] Uploaded file /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/config.yaml
+2024-12-02 22:11:49,636 INFO    wandb-upload_2:1454108 [upload_job.py:push():130] Uploaded file /home/ge54xof/dino-tum/dinov2/train/wandb/run-20241202_221019-vfkmsnhg/files/conda-environment.yaml
+2024-12-02 22:11:50,177 INFO    SenderThread:1454108 [file_stream.py:finish():601] file stream finish called
+2024-12-02 22:11:50,331 INFO    SenderThread:1454108 [file_stream.py:finish():605] file stream finish is done

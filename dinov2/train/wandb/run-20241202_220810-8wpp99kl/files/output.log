@@ -1,0 +1,18 @@
+
+I20241202 22:08:12 1450404 dinov2 train.py:276] Starting training from iteration 0
+Traceback (most recent call last):
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 390, in <module>
+    main(args)
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 385, in main
+    do_train(cfg, model, resume=not args.no_resume)
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 308, in do_train
+    loss_dict = model.forward_backward(data, teacher_temp=teacher_temp)
+  File "/home/ge54xof/dino-tum/dinov2/train/ssl_meta_arch.py", line 501, in forward_backward
+    kde_loss = self.cfg.dino.kde_loss_weight * sum(
+  File "/home/ge54xof/dino-tum/dinov2/train/ssl_meta_arch.py", line 502, in <genexpr>
+    self.kde_loss(p) for p in student_cls_tokens.chunk(2)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ge54xof/dino-tum/dinov2/loss/kde_loss.py", line 48, in forward
+    student_output_fp32 = student_output_fp16.float()
+NameError: name 'student_output_fp16' is not defined

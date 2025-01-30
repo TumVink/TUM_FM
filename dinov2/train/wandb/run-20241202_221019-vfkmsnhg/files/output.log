@@ -1,0 +1,55 @@
+
+I20241202 22:10:22 1452915 dinov2 train.py:276] Starting training from iteration 0
+I20241202 22:10:24 1452915 dinov2 helpers.py:102] Training  [     0/202900]  eta: 6 days, 20:21:12  lr: 0.0000 (0.0000)  wd: 0.0400 (0.0400)  mom: 0.9940 (0.9940)  last_layer_lr: 0.0000 (0.0000)  current_batch_size: 32.0000 (32.0000)  total_loss: -inf (-inf)  dino_local_crops_loss: 10.6597 (10.6597)  dino_global_crops_loss: 1.3546 (1.3546)  kde_loss: -inf (-inf)  ibot_loss: 2.3458 (2.3458)  time: 2.916078  data: 1.215109  max mem: 58895
+I20241202 22:10:43 1452915 dinov2 helpers.py:102] Training  [    10/202900]  eta: 4 days, 16:04:30  lr: 0.0000 (0.0000)  wd: 0.0400 (0.0400)  mom: 0.9940 (0.9940)  last_layer_lr: 0.0000 (0.0000)  current_batch_size: 32.0000 (32.0000)  total_loss: -inf (-inf)  dino_local_crops_loss: 10.6262 (10.6149)  dino_global_crops_loss: 1.3442 (1.3419)  kde_loss: -inf (-inf)  ibot_loss: 2.3068 (2.3108)  time: 1.988615  data: 1.002542  max mem: 58934
+I20241202 22:11:04 1452915 dinov2 helpers.py:102] Training  [    20/202900]  eta: 4 days, 17:36:59  lr: 0.0000 (0.0000)  wd: 0.0400 (0.0400)  mom: 0.9940 (0.9940)  last_layer_lr: 0.0000 (0.0000)  current_batch_size: 32.0000 (32.0000)  total_loss: -inf (-inf)  dino_local_crops_loss: 10.6129 (10.6297)  dino_global_crops_loss: 1.3351 (1.3408)  kde_loss: -inf (-inf)  ibot_loss: 2.3071 (2.3111)  time: 1.971067  data: 1.110297  max mem: 58934
+I20241202 22:11:22 1452915 dinov2 helpers.py:102] Training  [    30/202900]  eta: 4 days, 13:15:12  lr: 0.0000 (0.0000)  wd: 0.0400 (0.0400)  mom: 0.9940 (0.9940)  last_layer_lr: 0.0000 (0.0000)  current_batch_size: 32.0000 (32.0000)  total_loss: -inf (-inf)  dino_local_crops_loss: 10.8382 (10.7367)  dino_global_crops_loss: 1.3570 (1.3515)  kde_loss: -inf (-inf)  ibot_loss: 2.3336 (2.3415)  time: 1.911309  data: 1.110962  max mem: 58934
+I20241202 22:11:42 1452915 dinov2 helpers.py:102] Training  [    40/202900]  eta: 4 days, 15:13:48  lr: 0.0000 (0.0000)  wd: 0.0400 (0.0400)  mom: 0.9940 (0.9940)  last_layer_lr: 0.0000 (0.0000)  current_batch_size: 32.0000 (32.0000)  total_loss: -inf (-inf)  dino_local_crops_loss: 10.6889 (10.7131)  dino_global_crops_loss: 1.3477 (1.3478)  kde_loss: -inf (-inf)  ibot_loss: 2.3280 (2.3276)  time: 1.929653  data: 1.132015  max mem: 58934
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/wandb/sdk/lib/exit_hooks.py", line 41, in exc_handler
+    def exc_handler(
+KeyboardInterrupt
+Original exception was:
+Traceback (most recent call last):
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 390, in <module>
+    main(args)
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 385, in main
+    do_train(cfg, model, resume=not args.no_resume)
+  File "/home/ge54xof/dino-tum/dinov2/train/train.py", line 282, in do_train
+    for data in metric_logger.log_every(
+  File "/home/ge54xof/dino-tum/dinov2/logging/helpers.py", line 93, in log_every
+    for obj in iterable:
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 677, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ge54xof/dino-tum/dinov2/data/datasets/CustomImageDataset.py", line 229, in __getitem__
+    image = self.transform(image)
+  File "/home/ge54xof/dino-tum/dinov2/data/augmentations.py", line 129, in __call__
+    global_crop_2 = self.global_transfo2(im2_base)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torchvision/transforms/transforms.py", line 95, in __call__
+    img = t(img)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torchvision/transforms/transforms.py", line 95, in __call__
+    img = t(img)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torchvision/transforms/transforms.py", line 547, in forward
+    img = t(img)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torchvision/transforms/transforms.py", line 1285, in forward
+    img = F.adjust_saturation(img, saturation_factor)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torchvision/transforms/functional.py", line 937, in adjust_saturation
+    return F_pil.adjust_saturation(img, saturation_factor)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/torchvision/transforms/_functional_pil.py", line 93, in adjust_saturation
+    img = enhancer.enhance(saturation_factor)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/PIL/ImageEnhance.py", line 40, in enhance
+    return Image.blend(self.degenerate, self.image, factor)
+  File "/home/ge54xof/miniconda3/envs/dino/lib/python3.10/site-packages/PIL/Image.py", line 3540, in blend
+    return im1._new(core.blend(im1.im, im2.im, alpha))
+KeyboardInterrupt

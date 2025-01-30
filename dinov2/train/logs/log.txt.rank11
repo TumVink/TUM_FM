@@ -1,0 +1,298 @@
+I20241121 02:12:25 2921762 dinov2 config.py:59] git:
+  sha: ffb73cd426e77b07d288139e66a87357705de9d4, status: has uncommitted changes, branch: main
+
+I20241121 02:12:25 2921762 dinov2 config.py:60] config_file: ../configs/ssl_14GPUS_100K.yaml
+eval: 
+eval_only: False
+no_resume: False
+opts: ['train.output_dir=/home/ge54xof/dino-tum/dinov2/train']
+output_dir: /home/ge54xof/dino-tum/dinov2/train
+I20241121 02:12:25 2921762 dinov2 config.py:26] sqrt scaling learning rate; base: 0.0002, new: 0.000114564392373896
+I20241121 02:12:25 2921762 dinov2 config.py:33] MODEL:
+  WEIGHTS: ''
+compute_precision:
+  grad_scaler: true
+  teacher:
+    backbone:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    dino_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    ibot_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+  student:
+    backbone:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    dino_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+    ibot_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+dino:
+  loss_weight: 1.0
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  separate_head: false
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_nlayers: 3
+  head_hidden_dim: 2048
+train:
+  batch_size_per_gpu: 24
+  dataset_path: TUM_slides:split=TRAIN:root=/home/ge54xof/dino-tum/dinov2/data/datasets/TUM_100K.csv:extra=None
+  output_dir: /home/ge54xof/dino-tum/dinov2/train
+  saveckp_freq: 800
+  seed: 0
+  num_workers: 0
+  OFFICIAL_EPOCH_LENGTH: 1546
+  cache_dataset: true
+  centering: sinkhorn_knopp
+  sampler_type: 5
+  pretrained_iter: 0
+student:
+  arch: vit_giant2
+  patch_size: 14
+  drop_path_rate: 0.4
+  layerscale: 1.0e-05
+  drop_path_uniform: true
+  pretrained_weights: null
+  ffn_layer: mlp
+  block_chunks: 0
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  num_register_tokens: 0
+  interpolate_antialias: false
+  interpolate_offset: 0.1
+teacher:
+  momentum_teacher: 0.994
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+optim:
+  epochs: 100
+  weight_decay: 0.04
+  weight_decay_end: 0.2
+  base_lr: 0.0002
+  lr: 0.000114564392373896
+  warmup_epochs: 5
+  min_lr: 1.0e-06
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  layerwise_decay: 0.9
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 98
+evaluation:
+  eval_period_iterations: 10000
+head:
+  head_path: /home/ge54xof/dino-tum/weights/
+
+I20241121 02:12:26 2921762 dinov2 vision_transformer.py:127] using SwiGLU layer as FFN
+I20241121 02:12:40 2921762 dinov2 vision_transformer.py:127] using SwiGLU layer as FFN
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:178] OPTIONS -- architecture : embed_dim: 1536
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:194] OPTIONS -- DINO
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:196] OPTIONS -- DINO -- loss_weight: 1.0
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:197] OPTIONS -- DINO -- head_n_prototypes: 65536
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:198] OPTIONS -- DINO -- head_bottleneck_dim: 256
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:199] OPTIONS -- DINO -- head_hidden_dim: 2048
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:211] OPTIONS -- DINO -- applying KOLEO regularization
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:222] OPTIONS -- IBOT
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:223] OPTIONS -- IBOT -- loss_weight: 1.0
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:224] OPTIONS -- IBOT masking -- ibot_mask_ratio_tuple: [0.1, 0.5]
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:225] OPTIONS -- IBOT masking -- ibot_mask_sample_probability: 0.5
+I20241121 02:13:03 2921762 dinov2 ssl_meta_arch.py:248] OPTIONS -- IBOT -- head shared with DINO
+I20241121 02:13:04 2921762 dinov2 ssl_meta_arch.py:282] Student and Teacher are built: they are both vit_giant2 network.
+I20241121 02:13:05 2921762 dinov2 ssl_meta_arch.py:573] DISTRIBUTED FSDP -- preparing model for distributed training
+I20241121 02:23:09 2933268 dinov2 config.py:59] git:
+  sha: ffb73cd426e77b07d288139e66a87357705de9d4, status: has uncommitted changes, branch: main
+
+I20241121 02:23:09 2933268 dinov2 config.py:60] config_file: ../configs/ssl_14GPUS_100K.yaml
+eval: 
+eval_only: False
+no_resume: False
+opts: ['train.output_dir=/home/ge54xof/dino-tum/dinov2/train']
+output_dir: /home/ge54xof/dino-tum/dinov2/train
+I20241121 02:23:09 2933268 dinov2 config.py:26] sqrt scaling learning rate; base: 0.0002, new: 0.000114564392373896
+I20241121 02:23:09 2933268 dinov2 config.py:33] MODEL:
+  WEIGHTS: ''
+compute_precision:
+  grad_scaler: true
+  teacher:
+    backbone:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    dino_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    ibot_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+  student:
+    backbone:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    dino_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+    ibot_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+dino:
+  loss_weight: 1.0
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1
+ibot:
+  loss_weight: 1.0
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  separate_head: false
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_nlayers: 3
+  head_hidden_dim: 2048
+train:
+  batch_size_per_gpu: 24
+  dataset_path: TUM_slides:split=TRAIN:root=/home/ge54xof/dino-tum/dinov2/data/datasets/TUM_100K.csv:extra=None
+  output_dir: /home/ge54xof/dino-tum/dinov2/train
+  saveckp_freq: 800
+  seed: 0
+  num_workers: 0
+  OFFICIAL_EPOCH_LENGTH: 1546
+  cache_dataset: true
+  centering: sinkhorn_knopp
+  sampler_type: 5
+  pretrained_iter: 0
+student:
+  arch: vit_giant2
+  patch_size: 14
+  drop_path_rate: 0.4
+  layerscale: 1.0e-05
+  drop_path_uniform: true
+  pretrained_weights: null
+  ffn_layer: mlp
+  block_chunks: 0
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  num_register_tokens: 0
+  interpolate_antialias: false
+  interpolate_offset: 0.1
+teacher:
+  momentum_teacher: 0.994
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30
+optim:
+  epochs: 100
+  weight_decay: 0.04
+  weight_decay_end: 0.2
+  base_lr: 0.0002
+  lr: 0.000114564392373896
+  warmup_epochs: 5
+  min_lr: 1.0e-06
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  layerwise_decay: 0.9
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224
+  local_crops_size: 98
+evaluation:
+  eval_period_iterations: 10000
+head:
+  head_path: /home/ge54xof/dino-tum/weights/
+
+I20241121 02:23:10 2933268 dinov2 vision_transformer.py:127] using SwiGLU layer as FFN
+I20241121 02:23:23 2933268 dinov2 vision_transformer.py:127] using SwiGLU layer as FFN
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:178] OPTIONS -- architecture : embed_dim: 1536
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:194] OPTIONS -- DINO
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:196] OPTIONS -- DINO -- loss_weight: 1.0
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:197] OPTIONS -- DINO -- head_n_prototypes: 65536
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:198] OPTIONS -- DINO -- head_bottleneck_dim: 256
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:199] OPTIONS -- DINO -- head_hidden_dim: 2048
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:211] OPTIONS -- DINO -- applying KOLEO regularization
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:222] OPTIONS -- IBOT
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:223] OPTIONS -- IBOT -- loss_weight: 1.0
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:224] OPTIONS -- IBOT masking -- ibot_mask_ratio_tuple: [0.1, 0.5]
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:225] OPTIONS -- IBOT masking -- ibot_mask_sample_probability: 0.5
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:248] OPTIONS -- IBOT -- head shared with DINO
+I20241121 02:23:44 2933268 dinov2 ssl_meta_arch.py:282] Student and Teacher are built: they are both vit_giant2 network.
+I20241121 02:23:46 2933268 dinov2 ssl_meta_arch.py:573] DISTRIBUTED FSDP -- preparing model for distributed training

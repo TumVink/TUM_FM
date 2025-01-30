@@ -1,0 +1,26 @@
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_setup.py:_flush():77] Current SDK version is 0.17.8
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_setup.py:_flush():77] Configure stats pid to 52246
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_setup.py:_flush():77] Loading settings from /home/ge54xof/.config/wandb/settings
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_setup.py:_flush():77] Loading settings from /home/ge54xof/dino-tum/dinov2/train/wandb/settings
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_setup.py:_flush():77] Loading settings from environment variables: {}
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_setup.py:_flush():77] Applying setup settings: {'_disable_service': False}
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_setup.py:_flush():77] Inferring run settings from compute environment: {'program_relpath': 'dinov2/train/train.py', 'program_abspath': '/home/ge54xof/dino-tum/dinov2/train/train.py', 'program': '/home/ge54xof/dino-tum/dinov2/train/train.py'}
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_setup.py:_flush():77] Applying login settings: {}
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_init.py:_log_setup():524] Logging user logs to /home/ge54xof/dino-tum/dinov2/train/wandb/run-20250103_010153-9eezpm53/logs/debug.log
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_init.py:_log_setup():525] Logging internal logs to /home/ge54xof/dino-tum/dinov2/train/wandb/run-20250103_010153-9eezpm53/logs/debug-internal.log
+2025-01-03 01:01:53,241 INFO    MainThread:52246 [wandb_init.py:init():607] calling init triggers
+2025-01-03 01:01:53,242 INFO    MainThread:52246 [wandb_init.py:init():614] wandb.init called with sweep_config: {}
+config: {}
+2025-01-03 01:01:53,242 INFO    MainThread:52246 [wandb_init.py:init():657] starting backend
+2025-01-03 01:01:53,242 INFO    MainThread:52246 [wandb_init.py:init():661] setting up manager
+2025-01-03 01:01:53,242 INFO    MainThread:52246 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-01-03 01:01:53,243 INFO    MainThread:52246 [wandb_init.py:init():669] backend started and connected
+2025-01-03 01:01:53,244 INFO    MainThread:52246 [wandb_init.py:init():767] updated telemetry
+2025-01-03 01:01:53,247 INFO    MainThread:52246 [wandb_init.py:init():800] communicating run to backend with 90.0 second timeout
+2025-01-03 01:01:53,746 INFO    MainThread:52246 [wandb_init.py:init():851] starting run threads in backend
+2025-01-03 01:01:55,661 INFO    MainThread:52246 [wandb_run.py:_console_start():2463] atexit reg
+2025-01-03 01:01:55,662 INFO    MainThread:52246 [wandb_run.py:_redirect():2309] redirect: wrap_raw
+2025-01-03 01:01:55,662 INFO    MainThread:52246 [wandb_run.py:_redirect():2374] Wrapping output streams.
+2025-01-03 01:01:55,662 INFO    MainThread:52246 [wandb_run.py:_redirect():2399] Redirects installed.
+2025-01-03 01:01:55,663 INFO    MainThread:52246 [wandb_init.py:init():894] run started, returning control to user process
+2025-01-03 01:02:04,702 WARNING MsgRouterThr:52246 [router.py:message_loop():77] message_loop has been closed
