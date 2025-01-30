@@ -1,1 +1,0 @@
-{"lr": 1e-06, "loss": 12.57437801361084, "wd": 0.2, "mom": 1, "last_layer_lr": 1e-06, "current_batch_size": 32.0, "koleo_loss": "N/A", "kde_loss": -0.497802734375, "dino_local_crops_loss": 9.730142593383789, "dino_global_crops_loss": 1.2066338062286377, "ibot_loss": 2.135404348373413, "_timestamp": 1733937978.3876445, "_runtime": 5.048399448394775, "_step": 0}
