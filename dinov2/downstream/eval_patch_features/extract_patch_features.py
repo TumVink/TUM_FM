@@ -133,7 +133,53 @@ def extract_patch_features_from_slide_dist(model, dataloader):
 
     asset_dict = {
         "embeddings": torch.vstack(all_embeddings).double().detach().cpu(),
+        "idx": torch.cat(all_labels).long().detach().cpu()
+    }
+
+    return asset_dict
+
+@torch.no_grad()
+def extract_patch_features_from_slide_dist(model, dataloader):
+    """Uses model to extract features+labels from images iterated over the dataloader.
+
+    Args:
+        model (torch.nn): torch.nn CNN/VIT architecture with pretrained weights that extracts d-dim features.
+        dataloader (torch.utils.data.DataLoader): torch.utils.data.DataLoader object of N images.
+
+    Returns:
+        return embeddings, labels in tensors on GPU for dist
+    """
+    all_embeddings, all_labels, all_coords = [], [], []
+    batch_size = dataloader.batch_size
+    device = next(model.parameters())[0].device
+
+    for batch_idx, (batch, idx, coords) in tqdm(
+        enumerate(dataloader), total=len(dataloader)
+    ):
+        remaining = batch.shape[0]
+        if remaining != batch_size:
+            _ = torch.zeros((batch_size - remaining,) + batch.shape[1:]).type(
+                batch.type()
+            )
+            batch = torch.vstack([batch, _])
+
+        batch = batch.to(device)
+        with torch.inference_mode():
+            embeddings = model(batch)[:remaining, :]
+            labels = idx[:remaining]
+            coords = coords[:remaining]
+            assert not torch.isnan(embeddings).any()
+
+        all_embeddings.append(embeddings)
+        all_labels.append(labels)
+        all_coords.append(coords)
+        # del embeddings
+        # del labels
+
+    asset_dict = {
+        "embeddings": torch.vstack(all_embeddings).double().detach().cpu(),
         "idx": torch.cat(all_labels).long().detach().cpu(),
+        "coords": torch.cat(all_coords).long().detach().cpu(),
     }
 
     return asset_dict
@@ -156,7 +202,7 @@ def get_dino_finetuned_downloaded(DINO_PATH_FINETUNED_DOWNLOADED=None):
     new_state_dict = {}
     for key, value in pretrained['teacher'].items():
         if 'dino_head' in key:
-            print('not used')
+            print('dino_head not used')
         else:
             new_key = key.replace('backbone.', '')
             new_state_dict[new_key] = value
@@ -176,7 +222,7 @@ def get_dino_finetuned_downloaded(DINO_PATH_FINETUNED_DOWNLOADED=None):
     pos_embed = nn.Parameter(torch.zeros(1, 257, 1536))
     model.pos_embed = pos_embed
     # load state dict
-    model.load_state_dict(new_state_dict, strict=True)
+    model.load_state_dict(new_state_dict, strict=True)#
     return model
 
 def get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=None,rank=0):
@@ -185,18 +231,18 @@ def get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=None,rank=
     #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
     #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14_reg')
     model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
-
-    loc = 'cuda:{}'.format(rank)
-    model.to(loc)
-
-    model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[rank])
+    if 'student' in DINO_PATH_FINETUNED_DOWNLOADED:
+        keyword = 'student'
+    else:
+        keyword = 'teacher'
 
     # load finetuned weights
-    pretrained = torch.load(DINO_PATH_FINETUNED_DOWNLOADED, map_location=loc)
+    pretrained = torch.load(DINO_PATH_FINETUNED_DOWNLOADED, map_location=torch.device('cpu'))
+
     #print(pretrained)
     # make correct state dict for loading
     new_state_dict = {}
-    for key, value in pretrained['teacher'].items():
+    for key, value in pretrained[keyword].items():
         if 'dino_head' in key:
             print('not used')
         else:
@@ -217,8 +263,59 @@ def get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=None,rank=
     pos_embed = nn.Parameter(torch.zeros(1, 257, 1536))
     model.pos_embed = pos_embed
     # load state dict
-    model.load_state_dict(new_state_dict, strict=False)
+    model.load_state_dict(new_state_dict, strict=True) #torch.ddp would not work with strict=True, since it takes 'module' as prefix
+    loc = 'cuda:{}'.format(rank)
+    model.to(loc)
+    model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[rank])
+
     return model
+
+def get_meta_downloaded_dist(rank=0,vit='giant'):
+    if vit=='giant':
+        model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+    elif vit == 'large':
+        model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitl14')
+    else:
+        print('only giant and large are supported')
+        return None
+    loc = 'cuda:{}'.format(rank)
+    model.to(loc)
+
+    #model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[rank])
+
+    return model
+def get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=None,rank=0):
+    # load the original DINOv2 model with the correct architecture and parameters. The positional embedding is too large.
+    # load vits or vitg
+    model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitl14')
+    #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14_reg')
+    #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+
+    # load finetuned weights
+    loc = 'cuda:{}'.format(rank)
+    pretrained = torch.load(DINO_PATH_FINETUNED_DOWNLOADED, map_location=torch.device('cpu'))
+    #print(pretrained)
+    # make correct state dict for loading
+    new_state_dict = {}
+    for key, value in pretrained['teacher'].items():
+        if 'dino_head' in key:
+            print('dino_head not used')
+        else:
+            new_key = key.replace('backbone.', '')
+            new_state_dict[new_key] = value
+    #print(new_state_dict.keys())
+
+    # load classical method
+    pos_embed = nn.Parameter(torch.zeros(1, 257, 1024))
+    model.pos_embed = pos_embed
+    # load state dict
+    model.load_state_dict(new_state_dict, strict=True)
+
+
+    model.to(loc)
+    model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[rank])
+    return model
+
 
 def get_UNI_downloaded_dist(UNI_dir=None,rank=0):
     # load the original DINOv2 model with the correct architecture and parameters. The positional embedding is too large.
@@ -233,23 +330,16 @@ def get_UNI_downloaded_dist(UNI_dir=None,rank=0):
 
     model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[rank])
 
+    return model
 
-    #print(new_state_dict.keys())
+def get_UNI_downloaded(UNI_dir=None):
+    # load the original DINOv2 model with the correct architecture and parameters. The positional embedding is too large.
+    # load vits or vitg
+    #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+    #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14_reg')
+    import timm
+    model = timm.create_model("hf_hub:MahmoodLab/uni", pretrained=True, init_values=1e-5, dynamic_img_size=True)
 
-    # use training method
-    # input_tensor = model.pos_embed
-    # tensor_corr_shape = interpolate_pos_encoding(input_tensor, 16, 16)
-    # pos_embed = nn.Parameter(torch.zeros(1, 257))
-    # pos_embed.data = tensor_corr_shape
-    # model.pos_embed = pos_embed
-    # # load state dict
-    # model.load_state_dict(pretrained, strict=True)
-
-    # load classical method
-    # pos_embed = nn.Parameter(torch.zeros(1, 257, 1536))
-    # model.pos_embed = pos_embed
-    # # load state dict
-    # model.load_state_dict(new_state_dict, strict=False)
     return model
 
 

@@ -33,7 +33,7 @@ def eval_linear_probe(
     test_feats: torch.Tensor,
     test_labels: torch.Tensor,
     max_iter: int = 1000,
-    combine_trainval: bool = True,
+    combine_trainval: bool = False,
     use_sklearn: bool = False,
     prefix: str = "lin_",
     verbose: bool = True,

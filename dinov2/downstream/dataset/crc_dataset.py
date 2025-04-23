@@ -15,15 +15,20 @@ from PIL import Image
 
 # Define a dataset class
 class CRC_Dataset(VisionDataset):
-    def __init__(self, root_dir,split='train',transform=None):
+    def __init__(self, root_dir,split='train',transform=None,norm=False):
         self.root_dir = root_dir
+        self.norm = norm
         if split=='train':
-            self.root_dir = self.root_dir + 'NCT-CRC-HE-100K-NONORM/'
+            if self.norm:
+                self.root_dir = self.root_dir + 'NCT-CRC-HE-100K/'
+            else:
+                self.root_dir = self.root_dir + 'NCT-CRC-HE-100K-NONORM/'
         else:
             self.root_dir = self.root_dir + 'CRC-VAL-HE-7K/'
         self.transform = transform
         self.image_paths = []
         self.labels = []
+
         self.class_to_idx = {'ADI': 0, 'BACK': 1, 'DEB': 2, 'LYM': 3, 'MUC': 4, 'MUS': 5, 'NORM': 6, 'STR': 7, 'TUM': 8}
 
         for label in os.listdir(self.root_dir):
