@@ -1,4 +1,6 @@
 # Inference
+1. Before running the patch level evaluation, add your HF token firstly please.
+
 2. Copy the model file from LRZ container /dss/dssfs04/lwp-dss-0002/pn25ke/pn25ke-dss-0002/work/TUM_model to TUM_FM/dinov2/downstream/TUM_small.
 
 2. Run the inference_example.py either using single GPU or multi-GPUs.
