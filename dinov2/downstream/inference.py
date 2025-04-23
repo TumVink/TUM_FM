@@ -513,11 +513,7 @@ if __name__ == "__main__":
    if args.dist:
        if args.model == 'UNI':
            from huggingface_hub import login
-<<<<<<< HEAD
            login(token='') #your token
-=======
-           login(token='')#your hf token
->>>>>>> cd1677f (update patch eval)
        world_size = torch.cuda.device_count()
        print('world_size:'+str(world_size))
        mp.spawn(main, args=(world_size, args), nprocs=world_size)
