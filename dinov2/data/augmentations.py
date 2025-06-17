@@ -17,7 +17,7 @@ from .RandStainNA.randstainna import RandStainNA
 
 logger = logging.getLogger("dinov2")
 
-
+#needs 256x256 20x input (get from 512x512 40x input)
 class DataAugmentationDINO(object):
     def __init__(
         self,

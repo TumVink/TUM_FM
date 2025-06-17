@@ -79,9 +79,20 @@ def get_downloaded_dino_vit_s():
 
 
 # this function returns either a vit_s or vit_g, depending on what is commented out. the model is loaded with from torch.hub wih the weights and the positional encoding is reshaped.
-def get_downloaded_dino_interpolated():
+def get_downloaded_dino_interpolated(cfg):
+    if cfg.student.arch == 'vit_giant2':
+        # this is a workaround to load the giant model with registers
+        print('loading giant with registers')
+        return get_downloaded_dino_reg_interpolated()
+    if 'large' in cfg.student.arch:
+        model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitl14')
+    elif 'giant' in cfg.student.arch:
+        model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+    else:
+        model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
     # model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
-    model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+    # model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+    # model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitl14')
     input_tensor = model.pos_embed
     tensor_corr_shape = interpolate_pos_encoding(input_tensor, 16, 16)
     pos_embed = nn.Parameter(torch.zeros(1, 257))
@@ -107,17 +118,21 @@ def get_downloaded_dino_reg_interpolated():
 # This function allows to continue finetuning in case of the training breaking or also just if more experiments should be conducted.
 # Both teacher and student are set here directly. It is easy to switch between vit_s and vit_g.
 def get_dino_finetuned_downloaded(cfg, embed_dim):
-    # pos_embed has wrong shape
-    # model_student=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
-    # model_teacher=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
-    logger.info(f"start loading")
-    model_student = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
-    model_teacher = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+    if 'large' in cfg.student.arch:
+        model_student = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitl14')
+        model_teacher = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitl14')
+    elif 'giant' in cfg.student.arch:
+        model_student = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+        model_teacher = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+    else:
+        model_student = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+        model_teacher = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+
     logger.info(f"finish loading")
     # load finetuned weights, here the path added to the config_files is used
-    path_student = os.path.join(cfg.head.head_path,
+    path_student = os.path.join('/home/ge54xof/dino-tum/weights',
                                 'student_checkpoint.pth')  # os.path.join(cfg.head.head_path, 'student_checkpoint.pth')
-    path_teacher = os.path.join(cfg.head.head_path,
+    path_teacher = os.path.join('/home/ge54xof/dino-tum/weights',
                                 'teacher_checkpoint.pth')  # os.path.join(cfg.head.head_path, 'teacher_checkpoint.pth')
     pretrained_student = torch.load(path_student, map_location=torch.device('cpu'))
     pretrained_teacher = torch.load(path_teacher, map_location=torch.device('cpu'))
@@ -160,8 +175,15 @@ class SSLMetaArch(nn.Module):
 
         # This is commented out, because it was easier to create the model using the torch.hub, as this already returns the pretrained version with the correct architecture.
         # student_backbone, teacher_backbone, embed_dim = build_model_from_cfg(cfg)
-        embed_dim = 1536  # use for vit_g
+        if 'large' in cfg.student.arch:
+            embed_dim = 1024
+        elif 'giant' in cfg.student.arch:
+            embed_dim = 1536
+        else:
+            embed_dim = 384
+        #embed_dim = 1536  # use for vit_g
         # embed_dim = 384 # use for vit_s
+        # embed_dim = 1024  # use for vit_l
 
         # use for cut loading downloaded weights
         '''
@@ -172,8 +194,8 @@ class SSLMetaArch(nn.Module):
 
         if cfg.MODEL.Pretrained == 'Meta':
             # use for interpolated loading downloaded weights
-            student_backbone = get_downloaded_dino_interpolated()
-            teacher_backbone = get_downloaded_dino_interpolated()
+            student_backbone = get_downloaded_dino_interpolated(cfg)
+            teacher_backbone = get_downloaded_dino_interpolated(cfg)
 
             # use for interpolated loading downloaded weights with register
 
@@ -191,10 +213,10 @@ class SSLMetaArch(nn.Module):
         logger.info(f"OPTIONS -- architecture : embed_dim: {embed_dim}")
 
         # this is no longer required to load the weights, the functions above are used for this purpose
-        if cfg.student.pretrained_weights:
-            chkpt = torch.load(cfg.student.pretrained_weights)
-            logger.info(f"OPTIONS -- pretrained weights: loading from {cfg.student.pretrained_weights}")
-            student_model_dict["backbone"] = student_backbone
+        # if cfg.student.pretrained_weights:
+        #     chkpt = torch.load(cfg.student.pretrained_weights)
+        #     logger.info(f"OPTIONS -- pretrained weights: loading from {cfg.student.pretrained_weights}")
+        #     student_model_dict["backbone"] = student_backbone
 
         self.embed_dim = embed_dim
         self.dino_out_dim = cfg.dino.head_n_prototypes
@@ -235,7 +257,7 @@ class SSLMetaArch(nn.Module):
 
         # comment out to not use dino_head
         if self.do_dino or self.do_ibot:
-            student_model_dict["dino_head"] = dino_head()
+            student_model_dict["dino_head"] = dino_head() #randomly init dino head if not specified
             teacher_model_dict["dino_head"] = dino_head()
 
         logger.info("OPTIONS -- IBOT")
@@ -273,11 +295,12 @@ class SSLMetaArch(nn.Module):
 
         # load dino_head weights if available
         if cfg.head.head_path:
-            print('loading dino_head')
+            #print('loading dino_head')
             path_student = os.path.join(cfg.head.head_path, 'student_dino_head_checkpoint.pth')
             path_teacher = os.path.join(cfg.head.head_path, 'teacher_dino_head_checkpoint.pth')
             chkpt_teacher = torch.load(path_teacher)
             chkpt_student = torch.load(path_student)
+            print('loading dino_head')
             student_model_dict["dino_head"].load_state_dict(chkpt_student['student_dino_head'], strict=True)
             teacher_model_dict["dino_head"].load_state_dict(chkpt_teacher['teacher_dino_head'], strict=True)
 
@@ -502,12 +525,14 @@ class SSLMetaArch(nn.Module):
                 loss_dict["koleo_loss"] = (
                         koleo_loss / loss_scales
                 )  # this is to display the same losses as before but we can remove eventually
+                #print(loss_dict["koleo_loss"])
             elif self.do_kde:
                 kde_loss = self.cfg.dino.kde_loss_weight * sum(
                     self.kde_loss(p) for p in student_cls_tokens.chunk(2)
                 )
                 loss_accumulator += kde_loss
                 loss_dict["kde_loss"] = kde_loss / loss_scales
+
 
         if do_ibot:
             # compute loss
@@ -528,6 +553,7 @@ class SSLMetaArch(nn.Module):
 
             # accumulate loss
             loss_accumulator += self.ibot_loss_weight * ibot_patch_loss
+            #print(loss_dict["ibot_loss"])
 
         self.backprop_loss(loss_accumulator)
 
@@ -604,7 +630,7 @@ class SSLMetaArch(nn.Module):
             self.teacher[k].load_state_dict(self.student[k].state_dict())
             student_model_cfg = self.cfg.compute_precision.student[k]
             self.student[k] = get_fsdp_wrapper(student_model_cfg, modules_to_wrap={BlockChunk})(self.student[k])
-            print('running 1')
+            #print('running 1')
             teacher_model_cfg = self.cfg.compute_precision.teacher[k]
             self.teacher[k] = get_fsdp_wrapper(teacher_model_cfg, modules_to_wrap={BlockChunk})(self.teacher[k])
-            print('running 2')
+            #print('running 2')
