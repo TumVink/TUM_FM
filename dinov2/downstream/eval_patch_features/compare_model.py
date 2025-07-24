@@ -31,7 +31,7 @@ def feats_level_compare(feats_dir, model1, model2, dataset,split):
 
 def model_para_compare(model1, model2):
     #compare if two models have the same parameters
-    model_dir = '/home/ge54xof/dino-tum/eval/'
+    model_dir = '/home/ge24juj/dino-tum/eval/'
 
     model1 = get_dino_finetuned_downloaded(DINO_PATH_FINETUNED_DOWNLOADED=os.path.join(model_dir,model1,'teacher_checkpoint.pth'))
     model2 = get_dino_finetuned_downloaded(DINO_PATH_FINETUNED_DOWNLOADED=os.path.join(model_dir,model2,'teacher_checkpoint.pth'))
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     model2 = 'Dino_manual_74340'
     dataset = ['CCRCC','CRC_norm','CRC_unnorm','MHIST']
     split = ['train', 'test']
-    feats_dir = '/home/ge54xof/dino-tum/dinov2/downstream/feats'
+    feats_dir = '/home/ge24juj/dino-tum/dinov2/downstream/feats'
 
     #model_para_compare(model1, model2)
     feats_level_compare(feats_dir, model1, model2, dataset, split)

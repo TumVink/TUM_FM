@@ -93,7 +93,7 @@ def merge_dataset_csv():
     #merge all dataframes
     df = pd.concat([TCGA_df, CPTAC_df, Hest_df, CAM17_df, CAM16_df, IMP_df, SLN_df])
     #save into "public_dataset.csv"
-    global_path = '/home/ge54xof/dino-tum/dinov2/data/datasets/'
+    global_path = '/home/ge24juj/dino-tum/dinov2/data/datasets/'
     df.to_csv(os.path.join(global_path, 'public_dataset.csv'), index=False)
 
 

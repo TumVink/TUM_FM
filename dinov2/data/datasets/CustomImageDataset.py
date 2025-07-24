@@ -29,10 +29,10 @@ def sample_patches_from_csv(total_batches=5):
         num_batches: int
         return: df of patches for the first total_batches
     '''
-    # read the csv file in dir /home/ge54xof/Foundation-Model-for-Pathology/data/, with name local_slides_df_bt_+'num_batches'+.csv
+    # read the csv file in dir /home/ge24juj/Foundation-Model-for-Pathology/data/, with name local_slides_df_bt_+'num_batches'+.csv
 
     local_slides_dfs = [
-        os.path.join('/home/ge54xof/Foundation-Model-for-Pathology/data/local_slides_df_bt_' + str(nr_batch) + '.csv')
+        os.path.join('/home/ge24juj/Foundation-Model-for-Pathology/data/local_slides_df_bt_' + str(nr_batch) + '.csv')
         for nr_batch in range(total_batches)]
     if len(local_slides_dfs) == 0:
         local_slides_df = None
@@ -72,7 +72,7 @@ def save_image(tensor, name1, name2):
     file_name = f'{name1}_{name2}.png'
 
     # Specify the save path with the concatenated file name
-    save_path = f'/home/ge54xof/dino-tum/dinov2/data/viz/{file_name}'
+    save_path = f'/home/ge24juj/dino-tum/dinov2/data/viz/{file_name}'
 
     # Save the image
     image.save(save_path)
@@ -165,7 +165,7 @@ class TUM_slides(Dataset):
         self.slide_ext = '.h5'
         # self.data_h5_path = "/mnt/data/"
 
-        self.local_slides_df = pd.read_csv('/home/ge54xof/dino-tum/dinov2/data/datasets/TUM_100K.csv')
+        self.local_slides_df = pd.read_csv('/home/ge24juj/dino-tum/dinov2/data/datasets/TUM_100K.csv')
 
         self.num_ls = self.local_slides_df.num_patches.to_numpy()
         self.length = self.num_ls.sum()
@@ -272,7 +272,7 @@ class PathDataset(Dataset):
         #     # slide_ids = [slide_id.split('.')[0] for slide_id in slide_ids]
         #     slide_ids = slide_ids[1:]
         # print(slide_ids[:10]
-        self.df = pd.read_csv('/home/ge54xof/dino-tum/dinov2/data/datasets/public_dataset.csv')
+        self.df = pd.read_csv('/home/ge24juj/dino-tum/dinov2/data/datasets/public_dataset.csv')
         self.slides = self.df['slide'].tolist()
         self.coords = self.df['coor'].tolist()
         self.transform = transform
@@ -375,7 +375,7 @@ from concurrent.futures import ThreadPoolExecutor
 class PathDataset_mt(Dataset):
     def __init__(self, csv='/mnt/nfs01-R0/TUM_breast_cancer/clam_20/process_list_autogen.csv', patch_dir='/mnt/nfs01-R0/TUM_breast_cancer/clam_20/coor/',
                  slide_dir='/mnt/nfs01-R0/TUM_breast_cancer/svs/', transform=None, cache_size=50, max_workers=16,target_transform=None):
-        self.df = pd.read_csv('/home/ge54xof/dino-tum/dinov2/data/datasets/public_dataset.csv')
+        self.df = pd.read_csv('/home/ge24juj/dino-tum/dinov2/data/datasets/public_dataset.csv')
         self.slides = self.df['slide'].tolist()
         self.coords = self.df['coor'].tolist()
         self.transform = transform

@@ -1,0 +1,1 @@
+NCCL_SOCKET_IFNAME=eno3 torchrun --nproc_per_node=8 --nnodes=1 --node_rank=0 --rdzv_id=567 --rdzv_backend=c10d --rdzv_endpoint=IP_ADDR:29604 dinov2/train/train.py --config-file dinov2/configs/ssl_8gpus_large_shard.yaml

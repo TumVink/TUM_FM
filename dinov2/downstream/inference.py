@@ -113,8 +113,8 @@ def main(rank,world_size,args):
         val_dataset = None
 
 
-    save_feat_dir = '/home/ge54xof/dino-tum/dinov2/downstream/feats'
-    save_labels_dir = '/home/ge54xof/dino-tum/dinov2/downstream/labels'
+    save_feat_dir = '/home/ge24juj/dino-tum/dinov2/downstream/feats'
+    save_labels_dir = '/home/ge24juj/dino-tum/dinov2/downstream/labels'
     train_feat_dir = os.path.join(save_feat_dir, args.test_data+'_'+args.model+'_train.pth')
     train_labels_dir = os.path.join(save_labels_dir, args.test_data + '_' + args.model + '_train.pth')
 
@@ -137,7 +137,7 @@ def main(rank,world_size,args):
         test_labels = torch.load(test_labels_dir).to(device).to(torch.long)
     else:
         if args.model == 'Dino_giant':
-            model_dir = '/home/ge54xof/dino-tum/eval/manual_35400/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/manual_35400/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -147,7 +147,7 @@ def main(rank,world_size,args):
                 model.to(device)
                 model.eval()
         elif args.model == 'Dino_manual_74340':
-            model_dir = '/home/ge54xof/dino-tum/eval/manual_74340/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/manual_74340/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -158,7 +158,7 @@ def main(rank,world_size,args):
                 model.eval()
 
         elif args.model == 'Dino_small':
-            model_dir = '/home/ge54xof/dino-tum/eval/manual_8000/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/manual_8000/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_small_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -171,28 +171,28 @@ def main(rank,world_size,args):
         elif args.model == 'MOCO_4':
             if args.dist:
                 ddp_setup(rank, world_size)
-                model_dir = '/home/ge54xof/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat4.pth.tar'
+                model_dir = '/home/ge24juj/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat4.pth.tar'
                 model = get_moco_finetuned_downloaded_dist(moco_path=model_dir, rank=rank)
                 model.eval()
             else:
-                model_dir = '/home/ge54xof/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat4.pth.tar'
+                model_dir = '/home/ge24juj/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat4.pth.tar'
                 model = get_moco_finetuned_downloaded(moco_path=model_dir)
                 model.eval()
 
         elif args.model == 'MOCO_5':
             if args.dist:
                 ddp_setup(rank, world_size)
-                model_dir = '/home/ge54xof/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat5.pth.tar'
+                model_dir = '/home/ge24juj/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat5.pth.tar'
                 model = get_moco_finetuned_downloaded_dist(moco_path=model_dir, rank=rank)
                 model.eval()
             else:
-                model_dir = '/home/ge54xof/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat5.pth.tar'
+                model_dir = '/home/ge24juj/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat5.pth.tar'
                 model = get_moco_finetuned_downloaded(moco_path=model_dir)
                 model.eval()
 
 
         elif args.model == 'Dino_helmhotz':
-            model_dir = '/home/ge54xof/dino-tum/weights/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/weights/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -207,7 +207,7 @@ def main(rank,world_size,args):
                 model.eval()
         elif args.model == 'Dino_giant_150K':
 
-            model_dir = '/home/ge54xof/dino-tum/eval/dino_giant_150K/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/dino_giant_150K/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -218,7 +218,7 @@ def main(rank,world_size,args):
                 model.eval()
 
         elif args.model == '150K_before_spike':
-            model_dir = '/home/ge54xof/dino-tum/eval/150K_before_spike/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/150K_before_spike/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -230,7 +230,7 @@ def main(rank,world_size,args):
                 model.eval()
 
         elif args.model == '150K_before_spike_student':
-            model_dir = '/home/ge54xof/dino-tum/eval/150K_before_spike/student_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/150K_before_spike/student_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -241,7 +241,7 @@ def main(rank,world_size,args):
                 model.eval()
 
         elif args.model == '150K_final':
-            model_dir = '/home/ge54xof/dino-tum/eval/150K_final/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/150K_final/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -252,7 +252,7 @@ def main(rank,world_size,args):
                 model.eval()
         elif args.model == 'vit_large_100k_two_epoches':
             print('vit_large_100k')
-            model_dir = '/home/ge54xof/dino-tum/eval/vit_large/teacher_checkpoint_231999.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/vit_large/teacher_checkpoint_231999.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -263,7 +263,7 @@ def main(rank,world_size,args):
                 model.eval()
         elif args.model == 'vit_large_koleo_10k':
             print('vit_large_koleo_10k')
-            model_dir = '/home/ge54xof/dino-tum/eval/vit_large/teacher_checkpoint_koleo_10k.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/vit_large/teacher_checkpoint_koleo_10k.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -274,7 +274,7 @@ def main(rank,world_size,args):
                 model.eval()
         elif args.model == 'vit_large_100iter':
             print('vit_large_100iter')
-            model_dir = '/home/ge54xof/dino-tum/eval/vit_large/teacher_checkpoint_100iter.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/vit_large/teacher_checkpoint_100iter.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -285,7 +285,7 @@ def main(rank,world_size,args):
                 model.eval()
         elif args.model == 'vit_large_100k_one_epoch':
             print('vit_large_100k_one_epoch')
-            model_dir = '/home/ge54xof/dino-tum/eval/vit_large/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/vit_large/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -296,7 +296,7 @@ def main(rank,world_size,args):
                 model.eval()
         elif args.model == 'vit_large_100k_0_epoch':
             print('vit_large_100k_0_epoch')
-            model_dir = '/home/ge54xof/dino-tum/eval/vit_large/teacher_checkpoint_1epoch.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/vit_large/teacher_checkpoint_1epoch.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -307,7 +307,7 @@ def main(rank,world_size,args):
                 model.eval()
         elif args.model == 'vit_large_public':
             print('vit_large_public')
-            model_dir = '/home/ge54xof/dino-tum/eval/vit_large/teacher_checkpoint_public.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/vit_large/teacher_checkpoint_public.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -317,7 +317,7 @@ def main(rank,world_size,args):
                 model.to(device)
                 model.eval()
         elif args.model == 'one_slide':
-            model_dir = '/home/ge54xof/dino-tum/eval/overfit_45999/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/overfit_45999/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -328,7 +328,7 @@ def main(rank,world_size,args):
                 model.eval()
 
         elif args.model == 'meta_overfit':
-            model_dir = '/home/ge54xof/dino-tum/eval/meta_overfit/teacher_checkpoint.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/meta_overfit/teacher_checkpoint.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -339,7 +339,7 @@ def main(rank,world_size,args):
                 model.eval()
 
         elif args.model == 'vit_large_official':
-            #model_dir = '/home/ge54xof/dino-tum/eval/meta_overfit/teacher_checkpoint.pth'
+            #model_dir = '/home/ge24juj/dino-tum/eval/meta_overfit/teacher_checkpoint.pth'
             print('vit_large_official')
             if args.dist:
                 ddp_setup(rank, world_size)
@@ -349,7 +349,7 @@ def main(rank,world_size,args):
                 assert NotImplementedError
 
         elif args.model == 'tum_l3':
-            model_dir = '/home/ge54xof/dino-tum/eval/vit_large/tum_l3.pth'
+            model_dir = '/home/ge24juj/dino-tum/eval/vit_large/tum_l3.pth'
             if args.dist:
                 ddp_setup(rank, world_size)
                 model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir, rank=rank)
@@ -358,7 +358,7 @@ def main(rank,world_size,args):
                 assert NotImplementedError
 
         elif args.model == 'UNI':
-            # model_dir = '/home/ge54xof/dino-tum/weights/teacher_checkpoint.pth'
+            # model_dir = '/home/ge24juj/dino-tum/weights/teacher_checkpoint.pth'
             # login()
             if args.dist:
                 ddp_setup(rank, world_size)
@@ -476,7 +476,7 @@ def main(rank,world_size,args):
         combine_trainval=False
     )
     print_metrics(linprobe_eval_metrics)
-    linear_save_dir = os.path.join('/home/ge54xof/dino-tum/dinov2/downstream/results/jsons', args.test_data + '_' + args.model + '_linear.json')
+    linear_save_dir = os.path.join('/home/ge24juj/dino-tum/dinov2/downstream/results/jsons', args.test_data + '_' + args.model + '_linear.json')
     save_metrics_as_json(linprobe_eval_metrics, linear_save_dir)
     #
     # #### Few-shot ####
@@ -492,12 +492,12 @@ def main(rank,world_size,args):
         normalize_feats=True,
         n_neighbors=10
     )
-    knn_save_dir = os.path.join('/home/ge54xof/dino-tum/dinov2/downstream/results/jsons',
+    knn_save_dir = os.path.join('/home/ge24juj/dino-tum/dinov2/downstream/results/jsons',
                                    args.test_data + '_' + args.model + '_KNN.json')
     print_metrics(knn_eval_metrics)
     save_metrics_as_json(knn_eval_metrics, knn_save_dir)
     print_metrics(proto_eval_metrics)
-    proto_save_dir = os.path.join('/home/ge54xof/dino-tum/dinov2/downstream/results/jsons',
+    proto_save_dir = os.path.join('/home/ge24juj/dino-tum/dinov2/downstream/results/jsons',
                                    args.test_data + '_' + args.model + '_proto.json')
     save_metrics_as_json(proto_eval_metrics, proto_save_dir)
     #destroy_process_group()
@@ -518,7 +518,7 @@ if __name__ == "__main__":
        print('world_size:'+str(world_size))
        mp.spawn(main, args=(world_size, args), nprocs=world_size)
    else:
-       # linear_save_dir = os.path.join('/home/ge54xof/dino-tum/dinov2/downstream/results',
+       # linear_save_dir = os.path.join('/home/ge24juj/dino-tum/dinov2/downstream/results',
        #                                args.test_data + '_' + args.model + '_linear.json')
        # if os.path.exists(linear_save_dir):
        #     print('Results already exist')

@@ -92,14 +92,14 @@ def plt_embedding_spectrum(emd_ls,feats_dir_ls):
     #plt.savefig('embedding_spectrum.png')
 
 if __name__ == '__main__':
-    feats_dir_ls = ["/home/ge54xof/dino-tum/dinov2/downstream/feats/CRC_norm_UNI_test.pth",
-                    "/home/ge54xof/dino-tum/dinov2/downstream/feats/CRC_UNI_test.pth",
-                    "/home/ge54xof/dino-tum/dinov2/downstream/feats/MHIST_UNI_test.pth",
-                    "/home/ge54xof/dino-tum/dinov2/downstream/feats/Patch_cam_UNI_test.pth",
-                    "/home/ge54xof/dino-tum/dinov2/downstream/feats/CRC_norm_Dino_manual_74340_test.pth",
-                    "/home/ge54xof/dino-tum/dinov2/downstream/feats/CRC_Dino_manual_74340_test.pth",
-                    "/home/ge54xof/dino-tum/dinov2/downstream/feats/MHIST_Dino_manual_74340_test.pth",
-                    "/home/ge54xof/dino-tum/dinov2/downstream/feats/Patch_cam_Dino_manual_74340_test.pth"]
+    feats_dir_ls = ["/home/ge24juj/dino-tum/dinov2/downstream/feats/CRC_norm_UNI_test.pth",
+                    "/home/ge24juj/dino-tum/dinov2/downstream/feats/CRC_UNI_test.pth",
+                    "/home/ge24juj/dino-tum/dinov2/downstream/feats/MHIST_UNI_test.pth",
+                    "/home/ge24juj/dino-tum/dinov2/downstream/feats/Patch_cam_UNI_test.pth",
+                    "/home/ge24juj/dino-tum/dinov2/downstream/feats/CRC_norm_Dino_manual_74340_test.pth",
+                    "/home/ge24juj/dino-tum/dinov2/downstream/feats/CRC_Dino_manual_74340_test.pth",
+                    "/home/ge24juj/dino-tum/dinov2/downstream/feats/MHIST_Dino_manual_74340_test.pth",
+                    "/home/ge24juj/dino-tum/dinov2/downstream/feats/Patch_cam_Dino_manual_74340_test.pth"]
 
 
 

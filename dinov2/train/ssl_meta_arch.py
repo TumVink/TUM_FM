@@ -85,10 +85,12 @@ def get_downloaded_dino_interpolated(cfg):
         print('loading giant with registers')
         return get_downloaded_dino_reg_interpolated()
     if 'large' in cfg.student.arch:
+        print('-------- vit large loaded -------------')
         model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitl14')
     elif 'giant' in cfg.student.arch:
         model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
     else:
+        print('------------ vit small loaded -----------')
         model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
     # model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
     # model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
@@ -130,9 +132,9 @@ def get_dino_finetuned_downloaded(cfg, embed_dim):
 
     logger.info(f"finish loading")
     # load finetuned weights, here the path added to the config_files is used
-    path_student = os.path.join('/home/ge54xof/dino-tum/weights',
+    path_student = os.path.join('/home/ge24juj/dino-tum/weights',
                                 'student_checkpoint.pth')  # os.path.join(cfg.head.head_path, 'student_checkpoint.pth')
-    path_teacher = os.path.join('/home/ge54xof/dino-tum/weights',
+    path_teacher = os.path.join('/home/ge24juj/dino-tum/weights',
                                 'teacher_checkpoint.pth')  # os.path.join(cfg.head.head_path, 'teacher_checkpoint.pth')
     pretrained_student = torch.load(path_student, map_location=torch.device('cpu'))
     pretrained_teacher = torch.load(path_teacher, map_location=torch.device('cpu'))
@@ -565,9 +567,13 @@ class SSLMetaArch(nn.Module):
     def fsdp_synchronize_streams(self):
         if self.need_to_synchronize_fsdp_streams:
             torch.cuda.synchronize()
-            self.student.dino_head._streams = (
-                self.teacher.dino_head._streams
-            ) = self.student.backbone._streams = self.teacher.backbone._streams
+
+            for attr in {"_unshard_stream", "_post_backward_stream", "_pre_unshard_stream", "_all_reduce_stream", "_default_stream"}:
+                stream = getattr(self.teacher.backbone, attr)
+                setattr(self.student.dino_head, attr, stream)
+                setattr(self.teacher.dino_head, attr, stream)
+                setattr(self.student.backbone, attr, stream)
+
             self.need_to_synchronize_fsdp_streams = False
 
     # this was used for training the din_head without touhing the backbone

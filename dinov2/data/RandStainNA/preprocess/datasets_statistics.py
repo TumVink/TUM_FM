@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser(description="norm&jitter dataset lab statistics
 parser.add_argument(
     "--data-dir", type=str,default='/dss/dssmcmlfs01/pn25ke/pn25ke-dss-0003/TUM_patches/', metavar="DIR", help="path to dataset(ImageFolder form)"
 )
-parser.add_argument("--save-dir", type=str,default='/dss/dsshome1/05/ge54xof2/Foundation-Model-for-Pathology/RandStainNA/preprocess/', metavar="DIR", help="path to save dataset")
+parser.add_argument("--save-dir", type=str,default='/dss/dsshome1/05/ge24juj2/Foundation-Model-for-Pathology/RandStainNA/preprocess/', metavar="DIR", help="path to save dataset")
 parser.add_argument(
     "--dataset-name", type=str, default="TUM_slides", metavar="DIR", help="dataset output_name"
 )

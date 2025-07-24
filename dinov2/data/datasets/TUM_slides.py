@@ -24,9 +24,9 @@ def sample_patches_from_csv(total_batches = 5):
         num_batches: int
         return: df of patches for the first total_batches
     '''
-    # read the csv file in dir /home/ge54xof/Foundation-Model-for-Pathology/data/, with name local_slides_df_bt_+'num_batches'+.csv
+    # read the csv file in dir /home/ge24juj/Foundation-Model-for-Pathology/data/, with name local_slides_df_bt_+'num_batches'+.csv
 
-    local_slides_dfs = [os.path.join('/home/ge54xof/Foundation-Model-for-Pathology/data/local_slides_df_bt_'+str(nr_batch)+'.csv') for nr_batch in range(total_batches)]
+    local_slides_dfs = [os.path.join('/home/ge24juj/Foundation-Model-for-Pathology/data/local_slides_df_bt_'+str(nr_batch)+'.csv') for nr_batch in range(total_batches)]
     if len(local_slides_dfs) == 0:
         local_slides_df = None
     else:

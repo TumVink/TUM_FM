@@ -1,0 +1,18 @@
+# virtualenv -p python3.10 dinov2-venv
+-i https://download.pytorch.org/whl/cu118 
+xformers==0.0.27+cu118
+torch==2.3.1+cu118
+torchvision==0.18.1+cu118
+fvcore==0.1.5.post20221221
+pandas==2.3.0
+matplotlib==3.10.3
+h5py==3.14.0
+cucim==23.10.0
+opencv-python==4.11.0.86
+omegaconf==2.3.0
+wandb==0.21.0
+scikit-learn==1.7.0
+scikit-image==0.25.2
+faiss-gpu-cu11==1.11.0
+transformers==4.53.0
+numpy==1.26

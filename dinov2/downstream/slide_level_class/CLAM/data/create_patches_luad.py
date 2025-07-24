@@ -39,7 +39,7 @@ def mark_processed_slide(df):
 
     DST_patches_dir = "/dss/dssmcmlfs01/pn25ke/pn25ke-dss-0003/TUM_patches/"
     cmd_lrz = "ls " + DST_patches_dir + " |grep '.h5'"
-    stream = os.popen('ssh ge54xof2@login.ai.lrz.de ' + cmd_lrz)
+    stream = os.popen('ssh ge24juj2@login.ai.lrz.de ' + cmd_lrz)
     output = stream.read()
     h5_list_lrz = output.split()
     # print(len(usage))
@@ -70,7 +70,7 @@ def check_lrz_file_exist(dir="/dss/dssmcmlfs01/pn25ke/pn25ke-dss-0003/TUM_patche
     """
     path = dir+file_dir
     status = subprocess.call(
-        ['ssh', 'ge54xof2@login.ai.lrz.de', 'test -f {}'.format(pipes.quote(path))])
+        ['ssh', 'ge24juj2@login.ai.lrz.de', 'test -f {}'.format(pipes.quote(path))])
     if status == 0:
         return True
     if status == 1:
@@ -91,7 +91,7 @@ def check_patches_exist_in_lrz(lrz_ls,file_dir):
 def check_lrz_storage(lrz_dir="/dss/dssmcmlfs01/pn25ke/pn25ke-dss-0003/", threshold=100):
     quota = 10000 #GB, this is the number of storage that LRZ assigned
     cmd_lrz = "du -s "+lrz_dir
-    stream = os.popen('ssh ge54xof2@login.ai.lrz.de '+cmd_lrz)
+    stream = os.popen('ssh ge24juj2@login.ai.lrz.de '+cmd_lrz)
     output = stream.read()
     usage = output.split()[0] # G or M or
     usage = usage.split('G')[0]
@@ -263,7 +263,7 @@ def patch_transfer_single(i,process_stack,df,save_dir='/mnt/data/TUM_Slides_Patc
     # DST_patches_dir = "/dss/dssmcmlfs01/pn25ke/pn25ke-dss-0003/TUM_patches/"
     #
     # cmd_lrz = "ls " + DST_patches_dir + " |grep '.h5'"
-    # stream = os.popen('ssh ge54xof2@login.ai.lrz.de ' + cmd_lrz)
+    # stream = os.popen('ssh ge24juj2@login.ai.lrz.de ' + cmd_lrz)
     # output = stream.read()
     # h5_list_lrz = output.split()
     # # print(len(usage))
@@ -482,7 +482,7 @@ parser.add_argument('--stitch', default=False, action='store_true')
 parser.add_argument('--no_auto_skip', default=True, action='store_false')
 parser.add_argument('--save_dir', type=str,default='/mnt/nfs03-R6/CAMELYON17/',
                     help='directory to save processed data')
-parser.add_argument('--preset', default='/home/ge54xof/Foundation-Model-for-Pathology/data/presets/bwh_biopsy.csv', type=str,
+parser.add_argument('--preset', default='/home/ge24juj/Foundation-Model-for-Pathology/data/presets/bwh_biopsy.csv', type=str,
                     help='predefined profile of default segmentation and filter parameters (.csv)')
 parser.add_argument('--patch_level', type=int, default=0,
                     help='downsample level at which to patch')
@@ -562,7 +562,7 @@ if __name__ == '__main__':
                   os.path.isfile(os.path.join(args.save_dir+'images/', slide)) and slide.endswith('.tif')]
     elif 'TCGA' in args.save_dir:
         df = pd.read_csv(
-            '/home/ge54xof/dino-tum/dinov2/downstream/slide_level_class/TCGA-lung-histology-download/csv_files/classes_info_excluded.csv')
+            '/home/ge24juj/dino-tum/dinov2/downstream/slide_level_class/TCGA-lung-histology-download/csv_files/classes_info_excluded.csv')
         slide_file_name_ls = df['slide_file_name'].tolist()
         print(slide_file_name_ls[:4])
         #open csv files for two datasets: LUAD and LUSC
@@ -656,8 +656,8 @@ if __name__ == '__main__':
     #                                        process_list=process_list, auto_skip=args.no_auto_skip,num_selected_patches=1000)
     #start_time = time.time()
     # Select K patches
-    # file_path = '/home/ge54xof/TUM_slides/patches/007c63d6-08d8-3011-b4b2-f57bd6c0aa3f_205039.h5'
-    # WSI_object = WholeSlideImage('/home/ge54xof/TUM_slides/007c63d6-08d8-3011-b4b2-f57bd6c0aa3f_205039.svs')
+    # file_path = '/home/ge24juj/TUM_slides/patches/007c63d6-08d8-3011-b4b2-f57bd6c0aa3f_205039.h5'
+    # WSI_object = WholeSlideImage('/home/ge24juj/TUM_slides/007c63d6-08d8-3011-b4b2-f57bd6c0aa3f_205039.svs')
     # with h5py.File(file_path, 'r+') as h5file:
     #     coords = h5file['coords'][:]
     #

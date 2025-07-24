@@ -78,7 +78,7 @@ class DataAugmentationDINO(object):
         color_jittering = transforms.Compose(
             [
                 RandStainNA(
-                        yaml_file="/home/ge54xof/dino-tum/dinov2/data/RandStainNA/classification/norm_jitter/CRC/CRC_Random(HSV+LAB)_n0.yaml",
+                        yaml_file="/home/ge24juj/dino-tum/dinov2/data/RandStainNA/classification/norm_jitter/CRC/CRC_Random(HSV+LAB)_n0.yaml",
                         std_hyper=0.1,
                         probability=0.3,
                         distribution="normal",

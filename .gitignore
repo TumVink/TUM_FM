@@ -1,1 +1,2 @@
-.dinov2/train/wandb/
+dinov2/train/wandb/
+*.pyc

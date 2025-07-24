@@ -105,7 +105,7 @@ def main(rank,world_size,args):
     if args.model == 'Dino_giant':
         batch_size = 512
         num_workers = 0
-        model_dir = '/home/ge54xof/dino-tum/eval/manual_35400/teacher_checkpoint.pth'
+        model_dir = '/home/ge24juj/dino-tum/eval/manual_35400/teacher_checkpoint.pth'
         if args.dist:
             ddp_setup(rank, world_size)
             model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir,rank=rank)
@@ -119,7 +119,7 @@ def main(rank,world_size,args):
     elif args.model == 'Dino_manual_74340':
         batch_size = 512
         num_workers = 0
-        model_dir = '/home/ge54xof/dino-tum/eval/manual_74340/teacher_checkpoint.pth'
+        model_dir = '/home/ge24juj/dino-tum/eval/manual_74340/teacher_checkpoint.pth'
         if args.dist:
             ddp_setup(rank, world_size)
             model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir,rank=rank)
@@ -134,11 +134,11 @@ def main(rank,world_size,args):
     elif args.model == 'MOCO_4':
         if args.dist:
             ddp_setup(rank, world_size)
-            model_dir = '/home/ge54xof/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat4.pth.tar'
+            model_dir = '/home/ge24juj/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat4.pth.tar'
             model = get_moco_finetuned_downloaded_dist(moco_path=model_dir,rank=rank)
             model.eval()
         else:
-            model_dir = '/home/ge54xof/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat4.pth.tar'
+            model_dir = '/home/ge24juj/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat4.pth.tar'
             model = get_moco_finetuned_downloaded(moco_path=model_dir)
             model.eval()
 
@@ -148,11 +148,11 @@ def main(rank,world_size,args):
     elif args.model == 'MOCO_5':
         if args.dist:
             ddp_setup(rank, world_size)
-            model_dir = '/home/ge54xof/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat5.pth.tar'
+            model_dir = '/home/ge24juj/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat5.pth.tar'
             model = get_moco_finetuned_downloaded_dist(moco_path=model_dir,rank=rank)
             model.eval()
         else:
-            model_dir = '/home/ge54xof/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat5.pth.tar'
+            model_dir = '/home/ge24juj/Foundation-Model-for-Pathology/trained_moco/checkpoint_Epo0_Bat5.pth.tar'
             model = get_moco_finetuned_downloaded(moco_path=model_dir)
             model.eval()
 
@@ -162,7 +162,7 @@ def main(rank,world_size,args):
     elif args.model == 'Dino_helmhotz':
         batch_size = 512
         num_workers = 0
-        model_dir = '/home/ge54xof/dino-tum/weights/teacher_checkpoint.pth'
+        model_dir = '/home/ge24juj/dino-tum/weights/teacher_checkpoint.pth'
         if args.dist:
             ddp_setup(rank, world_size)
             model = get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=model_dir,rank=rank)
@@ -176,7 +176,7 @@ def main(rank,world_size,args):
     elif args.model == 'UNI':
         batch_size = 512
         num_workers = 0
-        #model_dir = '/home/ge54xof/dino-tum/weights/teacher_checkpoint.pth'
+        #model_dir = '/home/ge24juj/dino-tum/weights/teacher_checkpoint.pth'
 
         #login()
         if args.dist:

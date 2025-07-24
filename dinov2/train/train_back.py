@@ -35,8 +35,8 @@ import torch.distributed as dist
 
 from dinov2.train.ssl_meta_arch import SSLMetaArch
 os.environ["NCCL_DEBUG"] = "INFO" #INFO
-os.environ["NCCL_SOCKET_IFNAME"] = "ibp170s0f0"
-os.environ["GLOO_SOCKET_IFNAME"] = "ibp170s0f0"
+#os.environ["NCCL_SOCKET_IFNAME"] = "ibp170s0f0"
+#os.environ["GLOO_SOCKET_IFNAME"] = "ibp170s0f0"
 
 
 torch.backends.cuda.matmul.allow_tf32 = True  # PyTorch 1.12 sets this to False by default
@@ -298,8 +298,8 @@ def do_train(cfg, model, resume=False,args=None): # change resume to true?
 
     from torch.profiler import profile, record_function, ProfilerActivity
     patch_metric = {'lin_acc': 0.0, 'lin_bacc': 0.0}
-    #if iteration == 0:
-    #    patch_metric = do_test(cfg, model, f"training_{iteration}")
+    if iteration == 0:
+        patch_metric = do_test(cfg, model, f"training_{iteration}")
 
     if 'TUMShardDataset' in cfg.train.dataset_path:
         dataset.set_epoch(0)
@@ -384,8 +384,8 @@ def do_train(cfg, model, resume=False,args=None): # change resume to true?
 
                 # checkpointing and testing
                 if cfg.evaluation.eval_period_iterations > 0 and (iteration+1) % cfg.evaluation.eval_period_iterations == 0:
-                    #patch_metric = do_test(cfg, model, f"training_{iteration}")
-                    do_test(cfg, model, f"training_{iteration}")
+                    patch_metric = do_test(cfg, model, f"training_{iteration}")
+                    #do_test(cfg, model, f"training_{iteration}")
                     metric_logger.update(total_loss=losses_reduced, **loss_dict_reduced)
                     torch.cuda.synchronize()
 

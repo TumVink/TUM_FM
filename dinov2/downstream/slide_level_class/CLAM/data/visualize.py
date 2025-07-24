@@ -6,8 +6,8 @@ from PIL import Image
 import psutil
 
 
-h5_dir = '/home/ge54xof/Foundation-Model-for-Pathology/data/camelyon16/patches/normal_014.h5'
-out_dir = '/home/ge54xof/Foundation-Model-for-Pathology/data/camelyon16/imgs/'
+h5_dir = '/home/ge24juj/Foundation-Model-for-Pathology/data/camelyon16/patches/normal_014.h5'
+out_dir = '/home/ge24juj/Foundation-Model-for-Pathology/data/camelyon16/imgs/'
 
 with h5py.File(h5_dir, 'r+') as h5file:
     imgs = h5file['imgs']
@@ -78,7 +78,7 @@ plt.savefig("image_grid.png", facecolor=fig.get_facecolor())
 # def check_lrz_storage(lrz_dir="/dss/dssmcmlfs01/pn25ke/pn25ke-dss-0003/", threshold=10000):
 #     quota = 10000 #GB
 #     cmd_lrz = "du -s "+lrz_dir
-#     stream = os.popen('ssh ge54xof2@login.ai.lrz.de '+cmd_lrz)
+#     stream = os.popen('ssh ge24juj2@login.ai.lrz.de '+cmd_lrz)
 #     output = stream.read()
 #     usage = output.split()[0] # G or M or
 #     usage = usage.split('G')[0]
@@ -113,7 +113,7 @@ plt.savefig("image_grid.png", facecolor=fig.get_facecolor())
 #
 #     DST_patches_dir = "/dss/dssmcmlfs01/pn25ke/pn25ke-dss-0003/TUM_patches/"
 #     cmd_lrz = "ls " + DST_patches_dir + " |grep '.h5'"
-#     stream = os.popen('ssh ge54xof2@login.ai.lrz.de ' + cmd_lrz)
+#     stream = os.popen('ssh ge24juj2@login.ai.lrz.de ' + cmd_lrz)
 #     output = stream.read()
 #     h5_list_lrz = output.split()
 #     # print(len(usage))

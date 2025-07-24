@@ -34,7 +34,7 @@ def gather_dist_results(world_size,rank,features,device):
     test_labels_all = test_labels_all.to(device)
     return test_feats_all, test_labels_all
 
-def inf_during_training(variant='vit_giant2',ckp_path=None, local_id=0,iter='training_0'):
+def inf_during_training(variant='vit_small2',ckp_path=None, local_id=0,iter='training_0'):
     patch_tasks = ['mhist','crc_norm', 'crc_unnorm','ccrcc']
     lin_acc_ls = []
     lin_bacc_ls = []
@@ -76,7 +76,7 @@ def inf_during_training(variant='vit_giant2',ckp_path=None, local_id=0,iter='tra
         batch_size = 32
         num_workers = 4
 
-        model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=ckp_path, rank=local_id,variant=variant)
+        model = get_dino_large_finetued_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=ckp_path, rank=local_id)
         model.eval()
 
         train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=False, pin_memory=True,
@@ -125,7 +125,7 @@ def inf_during_training(variant='vit_giant2',ckp_path=None, local_id=0,iter='tra
             #print(f'linprobe_eval_metrics: {linprobe_eval_metrics}')
             lin_acc_ls.append(linprobe_eval_metrics['lin_acc'])
             lin_bacc_ls.append(linprobe_eval_metrics['lin_bacc'])
-            linear_save_dir = os.path.join('/home/ge54xof/dino-tum/dinov2/downstream/results/jsons',
+            linear_save_dir = os.path.join('/home/ge24juj/dino-tum/dinov2/downstream/results/jsons',
                                            task + '_' + iter + '_linear.json')
             save_metrics_as_json(linprobe_eval_metrics, linear_save_dir)
     dist.barrier()
@@ -145,7 +145,8 @@ def inf_during_training(variant='vit_giant2',ckp_path=None, local_id=0,iter='tra
     return result
 
 def test():
-    pretrained = torch.load('/home/ge54xof/dino-tum/dinov2/train/eval/training_0/teacher_checkpoint.pth', map_location=torch.device('cpu'))
+    print('------------- loading from training 0 ---------------')
+    pretrained = torch.load('/home/ge24juj/dino-tum/dinov2/train/eval/training_0/teacher_checkpoint.pth', map_location=torch.device('cpu'))
     print(pretrained['teacher'].keys())
 
 if __name__ == '__main__':

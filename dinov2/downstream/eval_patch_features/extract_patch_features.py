@@ -230,7 +230,7 @@ def get_dino_finetuned_downloaded_dist(DINO_PATH_FINETUNED_DOWNLOADED=None,rank=
     # load vits or vitg
     #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
     #model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14_reg')
-    model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
+    model=torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
     if 'student' in DINO_PATH_FINETUNED_DOWNLOADED:
         keyword = 'student'
     else:
