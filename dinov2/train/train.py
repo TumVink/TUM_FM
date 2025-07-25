@@ -20,7 +20,7 @@ import os
 from functools import partial
 import wandb
 #os.environ["WANDB_MODE"]="offline" #use this so set wandb to offline mode
-
+from torch.distributed.fsdp import FullyShardedDataParallel as FSDP, StateDictType
 from fvcore.common.checkpoint import PeriodicCheckpointer
 import torch
 
@@ -34,11 +34,13 @@ from dinov2.utils.utils import CosineScheduler
 import torch.distributed as dist
 
 from dinov2.train.ssl_meta_arch import SSLMetaArch
-#os.environ["NCCL_DEBUG"] = "INFO"
-os.environ["NCCL_SOCKET_IFNAME"] = "eno3"
+os.environ["NCCL_DEBUG"] = "INFO" #INFO
+os.environ["NCCL_SOCKET_IFNAME"] = "ibp170s0f0"
+os.environ["GLOO_SOCKET_IFNAME"] = "ibp170s0f0"
 
 
 torch.backends.cuda.matmul.allow_tf32 = True  # PyTorch 1.12 sets this to False by default
+torch.backends.cudnn.benchmark = True
 logger = logging.getLogger("dinov2")
 
 
@@ -68,6 +70,11 @@ For python-based LazyConfig, use "path.key=value".
         default="",
         type=str,
         help="Output directory to save logs and checkpoints",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Enable debug mode",
     )
 
     return parser
@@ -135,35 +142,42 @@ def apply_optim_scheduler(optimizer, lr, wd, last_layer_lr):
 
 
 def do_test(cfg, model, iteration):
-    new_state_dict = model.teacher.state_dict()
-    new_state_dict_student = model.student.state_dict()
-    state_dict_teacher_dino_head = model.teacher.dino_head.state_dict()
-    state_dict_student_dino_head = model.student.dino_head.state_dict()
     dist.barrier()
+    with FSDP.state_dict_type(model.teacher, StateDictType.FULL_STATE_DICT):
+        new_state_dict = model.teacher.state_dict()
+        # new_state_dict_student = model.student.state_dict()
+        # state_dict_teacher_dino_head = model.teacher.dino_head.state_dict()
+        # state_dict_student_dino_head = model.student.dino_head.state_dict()
 
+    iterstring = str(iteration)
+    eval_dir = os.path.join(cfg.train.output_dir, "eval", iterstring)
     if distributed.is_main_process():
-
-        iterstring = str(iteration)
-        eval_dir = os.path.join(cfg.train.output_dir, "eval", iterstring)
-        print(eval_dir)
+        #print(eval_dir)
         os.makedirs(eval_dir, exist_ok=True)
         # save teacher checkpoint
         teacher_ckp_path = os.path.join(eval_dir, "teacher_checkpoint.pth")
         torch.save({"teacher": new_state_dict}, teacher_ckp_path)
         # save student checkpoint
-        student_ckp_path = os.path.join(eval_dir, "student_checkpoint.pth")
-        torch.save({"student": new_state_dict_student}, student_ckp_path)
+        # student_ckp_path = os.path.join(eval_dir, "student_checkpoint.pth")
+        # torch.save({"student": new_state_dict_student}, student_ckp_path)
+        #
+        # # Save state_dict_teacher_dino_head for the teacher model
+        # teacher_dino_head_ckp_path = os.path.join(eval_dir, "teacher_dino_head_checkpoint.pth")
+        # torch.save({"teacher_dino_head": state_dict_teacher_dino_head}, teacher_dino_head_ckp_path)
+        #
+        # # Save state_dict_student_dino_head for the student model
+        # student_dino_head_ckp_path = os.path.join(eval_dir, "student_dino_head_checkpoint.pth")
+        # torch.save({"student_dino_head": state_dict_student_dino_head}, student_dino_head_ckp_path)
 
-        # Save state_dict_teacher_dino_head for the teacher model
-        teacher_dino_head_ckp_path = os.path.join(eval_dir, "teacher_dino_head_checkpoint.pth")
-        torch.save({"teacher_dino_head": state_dict_teacher_dino_head}, teacher_dino_head_ckp_path)
+    #test the teacher model with downstream tasks
+    #print('test the teacher model')
+    # from dinov2.train.eval.eval_during_training import inf_during_training
+    # patch_metric = inf_during_training(variant=cfg.student.arch,ckp_path = os.path.join(eval_dir, "teacher_checkpoint.pth"),local_id=dist.get_rank(),iter=iteration)
 
-        # Save state_dict_student_dino_head for the student model
-        student_dino_head_ckp_path = os.path.join(eval_dir, "student_dino_head_checkpoint.pth")
-        torch.save({"student_dino_head": state_dict_student_dino_head}, student_dino_head_ckp_path)
+    return None
 
 
-def do_train(cfg, model, resume=False): # change resume to true?
+def do_train(cfg, model, resume=False,args=None): # change resume to true?
     model.train()
     inputs_dtype = torch.half
     fp16_scaler = model.fp16_scaler  # for mixed precision training
@@ -181,9 +195,12 @@ def do_train(cfg, model, resume=False): # change resume to true?
     ) = build_schedulers(cfg,pretrained_iter)
 
     # checkpointer
-    checkpointer = FSDPCheckpointer(model, '/home/ge54xof/dino-tum/dinov2/ckp/', optimizer=optimizer, save_to_disk=True)
+    #with FSDP.state_dict_type(model, StateDictType.FULL_STATE_DICT):
+        #checkpointer.resume_or_load()
+    with FSDP.state_dict_type(model, StateDictType.FULL_STATE_DICT):
+        checkpointer = FSDPCheckpointer(model, '/home/ge54xof/dino-tum/dinov2/ckp/', optimizer=optimizer, save_to_disk=True)
 
-    start_iter = checkpointer.resume_or_load(cfg.MODEL.WEIGHTS, resume=resume).get("iteration", -1) + 1 #if use pretrained, resume=False
+        start_iter = checkpointer.resume_or_load(cfg.MODEL.WEIGHTS, resume=resume).get("iteration", -1) + 1 #if use pretrained, resume=False
     print('start_iter: '+str(start_iter))
     #start_iter = 41000
     OFFICIAL_EPOCH_LENGTH = cfg.train.OFFICIAL_EPOCH_LENGTH
@@ -261,12 +278,12 @@ def do_train(cfg, model, resume=False): # change resume to true?
         drop_last=True,
         collate_fn=collate_fn,
     )
-
-    if distributed.is_main_process():
-        run = wandb.init(
-        # Set the project where this run will be logged
-        project="dino_training",
-        name='overfit_8GPUs')
+    if not args.debug:
+        if distributed.is_main_process():
+            run = wandb.init(
+            # Set the project where this run will be logged
+            project="dino_training",
+            name='vit_large_100k')
 
 
     # training loop
@@ -279,7 +296,13 @@ def do_train(cfg, model, resume=False): # change resume to true?
     metric_logger = MetricLogger(delimiter="  ", output_file=metrics_file)
     header = "Training"
 
+    from torch.profiler import profile, record_function, ProfilerActivity
+    patch_metric = {'lin_acc': 0.0, 'lin_bacc': 0.0}
+    # if iteration == 0:
+    #     patch_metric = do_test(cfg, model, f"training_{iteration}")
 
+    if 'TUMShardDataset' in cfg.train.dataset_path:
+        dataset.set_epoch(0)
     for data in metric_logger.log_every(
         data_loader,
         10,
@@ -287,81 +310,92 @@ def do_train(cfg, model, resume=False): # change resume to true?
         max_iter -pretrained_iter, #if use pretrained, then - pretrained_iter. If resume, then - 0
         start_iter,
     ):
-        #print(iteration)
-        #print(cfg.evaluation.eval_period_iterations)
-        current_batch_size = data["collated_global_crops"].shape[0] / 2
-        #logger.info("Batch size: {}".format(current_batch_size))
-        if iteration > max_iter:
-            return
+        # with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
+        #     with record_function("Training Step"):
+                #print(iteration)
+                #print(cfg.evaluation.eval_period_iterations)
+                model.train()
+                current_batch_size = data["collated_global_crops"].shape[0] / 2
+                #logger.info("Batch size: {}".format(current_batch_size))
+                if iteration > max_iter:
+                    return
 
-        # apply schedules
+                # apply schedules
 
-        lr = lr_schedule[iteration]
-        wd = wd_schedule[iteration]
-        mom = momentum_schedule[iteration]
-        teacher_temp = teacher_temp_schedule[iteration]
-        last_layer_lr = last_layer_lr_schedule[iteration]
-        apply_optim_scheduler(optimizer, lr, wd, last_layer_lr)
+                lr = lr_schedule[iteration]
+                wd = wd_schedule[iteration]
+                mom = momentum_schedule[iteration]
+                teacher_temp = teacher_temp_schedule[iteration]
+                last_layer_lr = last_layer_lr_schedule[iteration]
+                apply_optim_scheduler(optimizer, lr, wd, last_layer_lr)
 
-        # compute losses
+                # compute losses
 
-        optimizer.zero_grad(set_to_none=True)
-        loss_dict = model.forward_backward(data, teacher_temp=teacher_temp)
+                optimizer.zero_grad(set_to_none=True)
+                loss_dict = model.forward_backward(data, teacher_temp=teacher_temp)
 
-        # clip gradients
+                # clip gradients
 
-        if fp16_scaler is not None:
-            if cfg.optim.clip_grad:
-                fp16_scaler.unscale_(optimizer)
-                for v in model.student.values():
-                    v.clip_grad_norm_(cfg.optim.clip_grad)
-            fp16_scaler.step(optimizer)
-            fp16_scaler.update()
-        else:
-            if cfg.optim.clip_grad:
-                for v in model.student.values():
-                    v.clip_grad_norm_(cfg.optim.clip_grad)
-            optimizer.step()
+                if fp16_scaler is not None:
+                    if cfg.optim.clip_grad:
+                        fp16_scaler.unscale_(optimizer)
+                        for v in model.student.values():
+                            v.clip_grad_norm_(cfg.optim.clip_grad)
+                    fp16_scaler.step(optimizer)
+                    fp16_scaler.update()
+                else:
+                    if cfg.optim.clip_grad:
+                        for v in model.student.values():
+                            v.clip_grad_norm_(cfg.optim.clip_grad)
+                    optimizer.step()
 
-        # perform teacher EMA update
-        model.update_teacher(mom)
+                # perform teacher EMA update
+                model.update_teacher(mom)
 
-        # logging
+                # logging
+                if distributed.get_global_size() > 1:
+                    for v in loss_dict.values():
+                        torch.distributed.all_reduce(v)
+                loss_dict_reduced = {k: v.item() / distributed.get_global_size() for k, v in loss_dict.items()}
+                #print(str(distributed.get_global_size()))
 
-        if distributed.get_global_size() > 1:
-            for v in loss_dict.values():
-                torch.distributed.all_reduce(v)
-        loss_dict_reduced = {k: v.item() / distributed.get_global_size() for k, v in loss_dict.items()}
-        #print(str(distributed.get_global_size()))
+                if math.isnan(sum(loss_dict_reduced.values())):
+                    logger.info("NaN detected")
+                    raise AssertionError
+                losses_reduced = sum(loss for loss in loss_dict_reduced.values()) # removed the keleo regularizer, because it is often inf
+                #losses_reduced = sum(loss for key, loss in loss_dict_reduced.items() if key != 'koleo_loss')
 
-        if math.isnan(sum(loss_dict_reduced.values())):
-            logger.info("NaN detected")
-            raise AssertionError
-        losses_reduced = sum(loss for loss in loss_dict_reduced.values()) # removed the keleo regularizer, because it is often inf
-        #losses_reduced = sum(loss for key, loss in loss_dict_reduced.items() if key != 'koleo_loss')
+                kde_loss = loss_dict_reduced['kde_loss'] if 'kde_loss' in loss_dict_reduced.keys() else 'N/A'
+                koleo_loss = loss_dict_reduced['koleo_loss'] if 'koleo_loss' in loss_dict_reduced.keys() else 'N/A'
+                # print(koleo_loss)
+                # print(loss_dict_reduced['dino_global_crops_loss'])
+                # wandb logging
+                if not args.debug:
+                    if distributed.is_main_process():
+                        wandb.log({"lr": lr, "loss": losses_reduced, "wd": wd, "mom": mom, "last_layer_lr": last_layer_lr, "current_batch_size": current_batch_size
+                        , "koleo_loss": koleo_loss,"kde_loss":kde_loss, "dino_local_crops_loss": loss_dict_reduced['dino_local_crops_loss']
+                        , "dino_global_crops_loss": loss_dict_reduced['dino_global_crops_loss'], "ibot_loss": loss_dict_reduced['ibot_loss'],"patch_acc":patch_metric['lin_acc'], "patch_bacc": patch_metric['lin_bacc']})
+                metric_logger.update(lr=lr)
+                metric_logger.update(wd=wd)
+                metric_logger.update(mom=mom)
+                metric_logger.update(last_layer_lr=last_layer_lr)
+                metric_logger.update(current_batch_size=current_batch_size)
+                metric_logger.update(total_loss=losses_reduced, **loss_dict_reduced)
 
-        kde_loss = loss_dict_reduced['kde_loss'] if cfg.dino.kde_loss_weight >0 else 'N/A'
-        koleo_loss = loss_dict_reduced['koleo_loss'] if cfg.dino.koleo_loss_weight >0 else 'N/A'
-        # wandb logging
-        if distributed.is_main_process():
-            wandb.log({"lr": lr, "loss": losses_reduced, "wd": wd, "mom": mom, "last_layer_lr": last_layer_lr, "current_batch_size": current_batch_size
-            , "koleo_loss": koleo_loss,"kde_loss":kde_loss, "dino_local_crops_loss": loss_dict_reduced['dino_local_crops_loss']
-            , "dino_global_crops_loss": loss_dict_reduced['dino_global_crops_loss'], "ibot_loss": loss_dict_reduced['ibot_loss']})
-        metric_logger.update(lr=lr)
-        metric_logger.update(wd=wd)
-        metric_logger.update(mom=mom)
-        metric_logger.update(last_layer_lr=last_layer_lr)
-        metric_logger.update(current_batch_size=current_batch_size)
-        metric_logger.update(total_loss=losses_reduced, **loss_dict_reduced)
+                # checkpointing and testing
+                if cfg.evaluation.eval_period_iterations > 0 and (iteration+1) % cfg.evaluation.eval_period_iterations == 0:
+                    #patch_metric = do_test(cfg, model, f"training_{iteration}")
+                    do_test(cfg, model, f"training_{iteration}")
+                    metric_logger.update(total_loss=losses_reduced, **loss_dict_reduced)
+                    torch.cuda.synchronize()
 
-        # checkpointing and testing
-        if cfg.evaluation.eval_period_iterations > 0 and (iteration + 1) % cfg.evaluation.eval_period_iterations == 0:
-            do_test(cfg, model, f"training_{iteration}")
-            torch.cuda.synchronize()
+                periodic_checkpointer.step(iteration)
 
-        periodic_checkpointer.step(iteration)
+                iteration = iteration + 1
 
-        iteration = iteration + 1
+        #print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
+    # print(kde_loss)
+    # print(loss_dict_reduced['dino_global_crops_loss'])
     metric_logger.synchronize_between_processes()
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
 
@@ -373,7 +407,7 @@ def main(args):
     print('prepare for distributed training')
     model.prepare_for_distributed_training()
 
-    logger.info("Model:\n{}".format(model))
+    #logger.info("Model:\n{}".format(model))
     if args.eval_only:
         iteration = (
             FSDPCheckpointer(model, save_dir='/home/ge54xof/dino-tum/dinov2/ckp/')
@@ -383,7 +417,7 @@ def main(args):
         )
         return do_test(cfg, model, f"manual_{iteration}")
 
-    do_train(cfg, model, resume=not args.no_resume)
+    do_train(cfg, model, resume=not args.no_resume,args=args)
 
 
 if __name__ == "__main__":

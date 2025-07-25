@@ -98,7 +98,7 @@ class TUM_slides(ExtendedVisionDataset):
         self.slide_ext = '.h5'
         # self.data_h5_path = "/mnt/data/"
 
-        self.local_slides_df = sample_patches_from_csv
+        self.local_slides_df = sample_patches_from_csv()
 
         self.num_ls = self.local_slides_df.num_patches.to_numpy()
         self.length = self.num_ls.sum()
@@ -168,7 +168,6 @@ class TUM_slides(ExtendedVisionDataset):
             img = Image.fromarray(f['imgs'][patch_local_idx],mode="RGB")#.convert("RGB") #
 
         return img
-
 
 
 

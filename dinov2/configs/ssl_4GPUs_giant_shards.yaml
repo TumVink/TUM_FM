@@ -1,0 +1,135 @@
+# this file was changed
+MODEL:
+  WEIGHTS:  ''
+  Pretrained: Meta #Meta or Helmholtz, Meta is the official dino pretrained model, Helmholtz is the model trained by Helmoltz
+compute_precision:
+  grad_scaler: true
+  teacher:
+    backbone:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    dino_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    ibot_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+  student:
+    backbone:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp16
+        buffer_dtype: fp32
+    dino_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+    ibot_head:
+      sharding_strategy: SHARD_GRAD_OP
+      mixed_precision:
+        param_dtype: fp16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+dino:
+  loss_weight: 1.0 # 1.0 original
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_nlayers: 3
+  head_hidden_dim: 2048
+  koleo_loss_weight: 0.1 #0
+  kde_loss_weight: 0
+ibot:
+  loss_weight: 1.0 # 1.0 original
+  mask_sample_probability: 0.5
+  mask_ratio_min_max:
+  - 0.1
+  - 0.5
+  separate_head: false
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+  head_nlayers: 3
+  head_hidden_dim: 2048
+train:
+  pretrained_iter: 0 #41000 for continuing training from Helmholtz, 0 for training from scratch
+  batch_size_per_gpu: 80 # 256 for vit_s, 32 for vit_g
+  dataset_path: TUMShardDataset:root=/mnt/research2/shards #PathDataset_mt #TUMShardDataset:root=/mnt/research2/shards #TUM_slides:split=TRAIN:root=/home/ge54xof/dino-tum/dinov2/data/datasets/TUM_100K.csv:extra=None #also need to change something in datasets/CustomImageDataset.py
+  output_dir: '/home/ge54xof/dino-tum/dinov2/ckp/' # change to something reasonable
+  saveckp_freq: 50000
+  seed: 0
+  num_workers: 0
+  OFFICIAL_EPOCH_LENGTH:  410 # 488 for 8 GPUS, 244 for 16 GPUS
+  cache_dataset: false
+  centering: "centering" # or "sinkhorn_knopp" or "centering"
+  sampler_type: 3
+            #  DISTRIBUTED = 0
+            #  EPOCH = 1
+            #  INFINITE = 2
+            #  SHARDED_INFINITE = 3
+            #  SHARDED_INFINITE_NEW = 4
+            #  TUM_DistributedSampler = 5
+
+
+student:
+  arch: vit_large # e.g. vit_large or vit_small or vit_giant2
+  patch_size: 14 # important to use the checkpoints!
+  drop_path_rate: 0.4
+  layerscale: 1.0e-05
+  drop_path_uniform: true # original true
+  pretrained_weights: true
+  ffn_layer: "mlp" #"swiglufused" or "mlp"
+  block_chunks: 0
+  qkv_bias: true
+  proj_bias: true
+  ffn_bias: true
+  num_register_tokens: 4
+  interpolate_antialias: false
+  interpolate_offset: 0.1
+teacher:
+  momentum_teacher: 0.994
+  final_momentum_teacher: 1
+  warmup_teacher_temp: 0.04
+  teacher_temp: 0.07
+  warmup_teacher_temp_epochs: 30 # original was 30
+optim:
+  epochs: 150 #200 for bs 256
+  weight_decay: 0.04 # 0.04 original
+  weight_decay_end: 0.2
+  base_lr: 1.0e-04  # learning rate for a batch size of 1024 is 2.0e-04
+  lr: 0.  # will be set after applying scaling rule
+  warmup_epochs: 10
+  min_lr: 1.0e-06
+  clip_grad: 3.0
+  freeze_last_layer_epochs: 5 #original 1
+  scaling_rule: sqrt_wrt_1024
+  patch_embed_lr_mult: 0.2
+  layerwise_decay: 0.9
+  adamw_beta1: 0.9
+  adamw_beta2: 0.999
+crops:
+  global_crops_scale:
+  - 0.32
+  - 1.0
+  local_crops_number: 8
+  local_crops_scale:
+  - 0.05
+  - 0.32
+  global_crops_size: 224 #original 224 -> 518 necessary for loading checkpoints, however, interpolation can be used to adapt the size
+  local_crops_size: 98 #original 96 -> has to be divideable by 14
+evaluation:
+  eval_period_iterations: 8000 # original 12500, what better -> use 1000 for finetuning
+# add a link to an /eval/training_iterations here, to continue with training to load the dino head weights as well, important: also set the start iterations!
+head:
+  head_path:
+  #head_start_iterations: 0
